@@ -23,7 +23,7 @@ include_dependency(SDL2 https://github.com/libsdl-org/SDL release-2.30.8)
 # SDL2_image
 include_dependency(SDL2_image https://github.com/libsdl-org/SDL_image release-2.8.2)
 
-add_executable(topDownGame main.cpp)
+add_executable(topDownGame main.cpp Game.cpp)
 # target_include_directories(topDownGame PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/entities)
 
 target_include_directories(
