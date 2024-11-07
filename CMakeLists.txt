@@ -45,7 +45,7 @@ target_link_libraries(
 
 if (WIN32)
     add_custom_command(
-            TARGET hello_sdl2_with_cmake POST_BUILD
+            TARGET topDownGame POST_BUILD
             COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:topDownGame>"
             COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2_image::SDL2_image>" "$<TARGET_FILE_DIR:topDownGame>"
             VERBATIM
