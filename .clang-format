@@ -1,0 +1,9 @@
+AccessModifierOffset: -4
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 120
+AllowShortBlocksOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: true
+AllowShortEnumsOnASingleLine: false
