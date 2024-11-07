@@ -1,5 +1,7 @@
 #include "Game.hpp"
 #include "SDL_image.h"
+#include "TextureManager.hpp"
+
 #include <cassert>
 #include <iostream>
 
@@ -44,8 +46,6 @@ void Game::init(const std::string title, int x_pos, int y_pos, int width, int he
         exit(1);
     }
 
-    assert(this->window != nullptr);
-
     this->renderer = SDL_CreateRenderer(window, -1, 0);
     if (this->renderer != nullptr) {
         std::cerr << "[INFO] Renderer created!" << '\n';
@@ -54,19 +54,12 @@ void Game::init(const std::string title, int x_pos, int y_pos, int width, int he
         exit(1);
     }
 
-    assert(this->renderer != nullptr);
-
     isRunning = true;
 
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
-    SDL_Surface *tempPlayerSurface = IMG_Load("assets/player_animations/idle/idle_0.png");
-    assert(tempPlayerSurface != nullptr);
-    playerRect.w = tempPlayerSurface->w;
-    playerRect.h = tempPlayerSurface->h;
-
-    playerTexture = SDL_CreateTextureFromSurface(renderer, tempPlayerSurface);
-    SDL_FreeSurface(tempPlayerSurface);
+    playerTexture =
+        TextureManager::loadTexture("assets/player_animations/idle/idle_0.png", &playerRect, this->renderer);
 }
 
 void Game::handleEvents() {

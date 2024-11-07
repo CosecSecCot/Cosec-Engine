@@ -1,5 +1,6 @@
 #ifndef Game_hpp
 #define Game_hpp
+#pragma once
 
 #include "SDL.h"
 #include <string>
@@ -30,4 +31,4 @@ private:
     SDL_Renderer *renderer;
 };
 
-#endif
+#endif /* Game.hpp */
