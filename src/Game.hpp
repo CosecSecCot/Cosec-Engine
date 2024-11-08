@@ -10,6 +10,8 @@ public:
     static const int FPS = 60;
     static const int expectedFrameTime = 1000 / FPS;
 
+    static SDL_Renderer *renderer;
+
     Game();
     ~Game();
 
@@ -28,7 +30,6 @@ private:
     bool isRunning;
 
     SDL_Window *window;
-    SDL_Renderer *renderer;
 };
 
 #endif /* Game.hpp */

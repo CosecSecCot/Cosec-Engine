@@ -4,7 +4,7 @@ Game *game = nullptr;
 
 int main() {
     game = new Game();
-    game->init("Top Down Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    game->init("Top Down Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
 
     Uint32 frameStart;
     Uint32 frameTime;

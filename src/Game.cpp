@@ -1,17 +1,17 @@
 #include "Game.hpp"
+#include "GameObject.hpp"
 #include "SDL_image.h"
-#include "TextureManager.hpp"
 
 #include <cassert>
 #include <iostream>
 
-SDL_Texture *playerTexture;
-SDL_Rect playerRect;
+GameObject *player;
+
+SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game() {
     this->isRunning = false;
     this->window = nullptr;
-    this->renderer = nullptr;
 }
 
 Game::~Game() {
@@ -46,8 +46,8 @@ void Game::init(const std::string title, int x_pos, int y_pos, int width, int he
         exit(1);
     }
 
-    this->renderer = SDL_CreateRenderer(window, -1, 0);
-    if (this->renderer != nullptr) {
+    Game::renderer = SDL_CreateRenderer(window, -1, 0);
+    if (Game::renderer != nullptr) {
         std::cerr << "[INFO] Renderer created!" << '\n';
     } else {
         std::cerr << "[ERROR] There was a problem creating renderer!" << '\n' << SDL_GetError();
@@ -56,10 +56,9 @@ void Game::init(const std::string title, int x_pos, int y_pos, int width, int he
 
     isRunning = true;
 
-    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(Game::renderer, 76, 61, 46, 255);
 
-    playerTexture =
-        TextureManager::loadTexture("assets/player_animations/idle/idle_0.png", &playerRect, this->renderer);
+    player = new GameObject("assets/player/IDLES_5_frames.png", 0, 0);
 }
 
 void Game::handleEvents() {
@@ -76,20 +75,22 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    playerRect.x += 1;
+    player->update();
 }
 
 void Game::render() {
-    SDL_RenderClear(this->renderer);
+    SDL_RenderClear(Game::renderer);
 
-    SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
+    player->render();
 
-    SDL_RenderPresent(this->renderer);
+    SDL_RenderPresent(Game::renderer);
 }
 
 void Game::clean() {
+    delete player;
+
     SDL_DestroyWindow(this->window);
-    SDL_DestroyRenderer(this->renderer);
+    SDL_DestroyRenderer(Game::renderer);
     SDL_Quit();
     std::cerr << "[INFO] Game cleaned!" << '\n';
 }

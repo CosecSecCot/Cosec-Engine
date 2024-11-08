@@ -2,7 +2,7 @@
 #define TextureManager_hpp
 #pragma once
 
-#include "SDL.h"
+#include "Game.hpp"
 #include "SDL_image.h"
 
 #include <cassert>
@@ -11,8 +11,8 @@
 
 class TextureManager {
 public:
-    static SDL_Texture *loadTexture(const char *filename, SDL_Rect *rect, SDL_Renderer *renderer) {
-        assert(renderer != nullptr && "Renderer cannot be null");
+    static SDL_Texture *loadTexture(const char *filename, SDL_Rect *rect) {
+        assert(Game::renderer != nullptr && "Renderer cannot be null");
 
         SDL_Surface *tempSurface = IMG_Load(filename);
         if (tempSurface == nullptr) {
@@ -23,7 +23,7 @@ public:
         rect->w = tempSurface->w;
         rect->h = tempSurface->h;
 
-        SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
         if (texture == nullptr) {
             throw std::runtime_error("Failed to create texture from surface\n" + std::string(SDL_GetError()));
         }
@@ -33,8 +33,8 @@ public:
         return texture;
     }
 
-    static SDL_Texture *loadTexture(const char *filename, SDL_Renderer *renderer) {
-        assert(renderer != nullptr && "Renderer cannot be null");
+    static SDL_Texture *loadTexture(const char *filename) {
+        assert(Game::renderer != nullptr && "Renderer cannot be null");
 
         SDL_Surface *tempSurface = IMG_Load(filename);
         if (tempSurface == nullptr) {
@@ -42,7 +42,7 @@ public:
                                      std::string(IMG_GetError()));
         }
 
-        SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
         if (texture == nullptr) {
             throw std::runtime_error("Failed to create texture from surface\n" + std::string(SDL_GetError()));
         }
