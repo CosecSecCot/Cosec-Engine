@@ -11,3 +11,9 @@ CMake Generate:
 CMake Build:
 
 ```cmake --build build```
+
+## Resources
+
+Player Sprite: <https://campalans.itch.io/mag>
+
+Tileset: <https://seliel-the-shaper.itch.io/autumn-forest>

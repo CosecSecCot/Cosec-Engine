@@ -1,11 +1,13 @@
 #include "Game.hpp"
 #include "GameObject.hpp"
 #include "SDL_image.h"
+#include "TileMap.hpp"
 
 #include <cassert>
 #include <iostream>
 
 GameObject *player;
+TileMap *tileMap;
 
 SDL_Renderer *Game::renderer = nullptr;
 
@@ -56,9 +58,11 @@ void Game::init(const std::string title, int x_pos, int y_pos, int width, int he
 
     isRunning = true;
 
+    // SDL_RenderSetLogicalSize(Game::renderer, width / 2, height / 2);
     SDL_SetRenderDrawColor(Game::renderer, 76, 61, 46, 255);
 
     player = new GameObject("assets/player/IDLES_5_frames.png", 0, 0);
+    tileMap = new TileMap(16);
 }
 
 void Game::handleEvents() {
@@ -81,6 +85,7 @@ void Game::update() {
 void Game::render() {
     SDL_RenderClear(Game::renderer);
 
+    tileMap->render();
     player->render();
 
     SDL_RenderPresent(Game::renderer);
