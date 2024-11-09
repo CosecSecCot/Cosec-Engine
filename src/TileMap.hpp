@@ -22,7 +22,6 @@ struct Tile {
 
 class TileMap {
 public:
-    TileMap() = delete;
     explicit TileMap(int tileSize);
     ~TileMap();
 
