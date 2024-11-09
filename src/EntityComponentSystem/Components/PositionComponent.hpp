@@ -16,7 +16,7 @@ public:
         return xPosition;
     };
     [[nodiscard]] int y() const {
-        return xPosition;
+        return yPosition;
     };
     void setX(int x) {
         this->xPosition = x;
