@@ -11,13 +11,12 @@
 
 class TextureManager {
 public:
-    static SDL_Texture *loadTexture(const char *filename, SDL_Rect *rect) {
+    static SDL_Texture *loadTexture(const std::string &filename, SDL_Rect *rect) {
         assert(Game::renderer != nullptr && "Renderer cannot be null");
 
-        SDL_Surface *tempSurface = IMG_Load(filename);
+        SDL_Surface *tempSurface = IMG_Load(filename.c_str());
         if (tempSurface == nullptr) {
-            throw std::runtime_error("Failed to load image: " + std::string(filename) + "\n" +
-                                     std::string(IMG_GetError()));
+            throw std::runtime_error("Failed to load image: " + filename + "\n" + std::string(IMG_GetError()));
         }
 
         rect->w = tempSurface->w;
@@ -33,13 +32,12 @@ public:
         return texture;
     }
 
-    static SDL_Texture *loadTexture(const char *filename) {
+    static SDL_Texture *loadTexture(const std::string &filename) {
         assert(Game::renderer != nullptr && "Renderer cannot be null");
 
-        SDL_Surface *tempSurface = IMG_Load(filename);
+        SDL_Surface *tempSurface = IMG_Load(filename.c_str());
         if (tempSurface == nullptr) {
-            throw std::runtime_error("Failed to load image: " + std::string(filename) + "\n" +
-                                     std::string(IMG_GetError()));
+            throw std::runtime_error("Failed to load image: " + filename + "\n" + std::string(IMG_GetError()));
         }
 
         SDL_Texture *texture = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);

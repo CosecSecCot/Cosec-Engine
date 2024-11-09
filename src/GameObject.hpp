@@ -3,10 +3,11 @@
 #pragma once
 
 #include "SDL.h"
+#include <string>
 
 class GameObject {
 public:
-    GameObject(const char *textureSheet, int x, int y);
+    GameObject(const std::string &textureSheet, int x, int y);
     ~GameObject();
 
     void update();

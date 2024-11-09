@@ -4,7 +4,7 @@
 #define UPSCALE_FACTOR 2
 #define SIZE_IN_PX 24
 
-GameObject::GameObject(const char *textureSheet, int x, int y) : xPosition(x), yPosition(y) {
+GameObject::GameObject(const std::string &textureSheet, int x, int y) : xPosition(x), yPosition(y) {
 
     this->texture = TextureManager::loadTexture(textureSheet);
 

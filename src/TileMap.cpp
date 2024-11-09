@@ -44,8 +44,6 @@ TileMap::TileMap(int tileSize) : tileSize(tileSize) {
     tiles.push_back(Tile{TileType::WATER, 1, 2, 2});
 }
 
-TileMap::~TileMap() = default;
-
 void TileMap::render() {
     for (Tile tile : tiles) {
         SDL_Rect dest = {tile.xPos * tileSize * UPSCALE_FACTOR, tile.yPos * tileSize * UPSCALE_FACTOR,

@@ -22,6 +22,7 @@ struct Tile {
 
 class TileMap {
 public:
+    TileMap() = delete;
     explicit TileMap(int tileSize);
     ~TileMap();
 
@@ -29,7 +30,7 @@ public:
 
 private:
     int tileSize;
-    std::vector<Tile> tiles;
+    std::vector<Tile> tiles; // The tile objects that are going to be rendered on the screen.
 
     SDL_Texture *tileSheet;                              // The tiles sprite-sheet
     std::map<TileType, std::vector<SDL_Rect>> tileRects; // position of the individual tiles in the spriteSheet
