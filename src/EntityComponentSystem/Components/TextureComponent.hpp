@@ -16,13 +16,17 @@ public:
         // TODO: Change it to actual width and height of texture
         this->srcRect.x = 0;
         this->srcRect.y = 0;
-        this->srcRect.w = 24;
-        this->srcRect.h = 24;
+        this->srcRect.w = this->transform->width;
+        this->srcRect.h = this->transform->height;
 
         this->destRect.x = static_cast<int>(this->transform->position.x);
         this->destRect.y = static_cast<int>(this->transform->position.y);
-        this->destRect.w = srcRect.w * 2;
-        this->destRect.h = srcRect.h * 2;
+        this->destRect.w = srcRect.w * this->transform->scale;
+        this->destRect.h = srcRect.h * this->transform->scale;
+    }
+
+    ~TextureComponent() override {
+        SDL_DestroyTexture(this->texture);
     }
 
     void update() override {

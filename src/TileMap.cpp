@@ -7,7 +7,7 @@
 #define RANDOM_VARIANT(type) static_cast<int>(rand() % this->tileRects[(type)].size())
 #define ADD_TILE(type, x, y) tiles.push_back(Tile{(type), RANDOM_VARIANT(type), (x), (y)});
 #define ADD_CONTD(type, row, start, end)                                                                               \
-    for (int i = start; i <= end; i++) ADD_TILE(type, i, (row));
+    for (int i = start; i <= end; i++) ADD_TILE(type, i, (row))
 
 TileMap::TileMap(int tileSize) : tileSize(tileSize) {
     this->tileSheet = TextureManager::loadTexture("assets/tiles/seasonal sample (autumn).png");
@@ -117,6 +117,10 @@ TileMap::TileMap(int tileSize) : tileSize(tileSize) {
 
         ADD_CONTD(TileType::DIRT, 18, 13, 14);
     }
+}
+
+TileMap::~TileMap() {
+    SDL_DestroyTexture(this->tileSheet);
 }
 
 void TileMap::render() {

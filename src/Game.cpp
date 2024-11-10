@@ -67,7 +67,8 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     // SDL_RenderSetLogicalSize(Game::renderer, width / 2, height / 2);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 
-    auto &playerTransform = player.addComponent<TransformComponent>(500, 250);
+    auto &playerTransform = player.addComponent<TransformComponent>(500, 250, 24, 24);
+    playerTransform.scale = 2;
     player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerTransform);
     player.addComponent<KeyboardInput>(playerTransform);
 

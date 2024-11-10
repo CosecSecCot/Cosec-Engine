@@ -9,8 +9,11 @@ public:
     Vector2D velocity;
     float speed = 3;
 
-    TransformComponent() : position(Vector2D(0, 0)) {}
-    TransformComponent(float x, float y) : position(Vector2D(x, y)) {}
+    int width, height;
+    uint16_t scale = 1;
+
+    TransformComponent(int w, int h) : position(Vector2D(0, 0)), width(w), height(h) {}
+    TransformComponent(float x, float y, int w, int h) : position(Vector2D(x, y)), width(w), height(h) {}
 
     void update() override {
         position += (speed * velocity);
