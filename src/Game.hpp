@@ -11,6 +11,7 @@ public:
     static const int expectedFrameTime = 1000 / FPS;
 
     static SDL_Renderer *renderer;
+    static SDL_Event event;
 
     Game();
     ~Game();

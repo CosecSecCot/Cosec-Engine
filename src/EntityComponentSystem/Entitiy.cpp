@@ -15,6 +15,6 @@ void Entity::render() const {
     // Draw only those components which have SpriteComponent attached
     // else draw a margenta color
     if (hasComponent<TextureComponent>()) {
-        getComponent<TextureComponent>().render();
+        getComponent<TextureComponent>()->render();
     }
 }

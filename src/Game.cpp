@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "EntityComponentSystem/Components/KeyboardInput.hpp"
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
 #include "EntityComponentSystem/Components/TransformComponent.hpp"
 #include "EntityComponentSystem/ECS.hpp"
@@ -14,6 +15,7 @@ ECS ecs;
 Entity &player = ecs.addEntity();
 
 SDL_Renderer *Game::renderer = nullptr;
+SDL_Event Game::event;
 
 Game::Game() {
     this->isRunning = false;
@@ -65,23 +67,24 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     // SDL_RenderSetLogicalSize(Game::renderer, width / 2, height / 2);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 
-    player.addComponent<TransformComponent>(500, 250);
-    {
-        auto &playerPosComponent = player.getComponent<TransformComponent>();
-        player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerPosComponent);
-    }
-    if (player.hasComponents<TransformComponent, TextureComponent>()) {
-        std::cout << "newPlayer has PositionComponent and TextureComponent" << '\n';
+    auto &playerTransform = player.addComponent<TransformComponent>(500, 250);
+    player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerTransform);
+    player.addComponent<KeyboardInput>(playerTransform);
+
+    if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput>()) {
+        std::cout << "[INFO] Player has been initialized." << '\n';
+    } else {
+        std::cout << "[ERROR] Player doesn't have all the components." << '\n';
+        exit(1);
     }
 
     tileMap = new TileMap(16);
 }
 
 void Game::handleEvents() {
-    SDL_Event event;
-    SDL_PollEvent(&event);
+    SDL_PollEvent(&Game::event);
 
-    switch (event.type) {
+    switch (Game::event.type) {
     case SDL_QUIT:
         isRunning = false;
         break;
@@ -94,7 +97,9 @@ void Game::update() {
     ecs.update();
     if (player.getComponent<TransformComponent>() != nullptr) {
         if (player.getComponent<TransformComponent>()->position.y > 300)
-            player.getComponent<TextureComponent>()->setSrcX(24 * 10); // 11 th sprite in the current spritesheet
+            player.getComponent<TextureComponent>()->setSrcX(24 * 10); // 11th sprite in the current spritesheet
+        else
+            player.getComponent<TextureComponent>()->setSrcX(0); // 1st sprite in the current spritesheet
     }
 }
 
