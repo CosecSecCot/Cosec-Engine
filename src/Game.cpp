@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
+#include "EntityComponentSystem/Components/TransformComponent.hpp"
 #include "EntityComponentSystem/ECS.hpp"
 #include "SDL_image.h"
 #include "TileMap.hpp"
@@ -62,14 +63,14 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     isRunning = true;
 
     // SDL_RenderSetLogicalSize(Game::renderer, width / 2, height / 2);
-    SDL_SetRenderDrawColor(Game::renderer, 76, 61, 46, 255);
+    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 
-    player.addComponent<PositionComponent>(100, 0);
+    player.addComponent<TransformComponent>(500, 250);
     {
-        auto &playerPosComponent = player.getComponent<PositionComponent>();
+        auto &playerPosComponent = player.getComponent<TransformComponent>();
         player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerPosComponent);
     }
-    if (player.hasComponents<PositionComponent, TextureComponent>()) {
+    if (player.hasComponents<TransformComponent, TextureComponent>()) {
         std::cout << "newPlayer has PositionComponent and TextureComponent" << '\n';
     }
 
@@ -91,8 +92,9 @@ void Game::handleEvents() {
 
 void Game::update() {
     ecs.update();
-    if (player.getComponent<PositionComponent>().y() > 300) {
-        player.getComponent<TextureComponent>().setSrcX(24 * 10); // 11 th sprite in the current spritesheet
+    if (player.getComponent<TransformComponent>() != nullptr) {
+        if (player.getComponent<TransformComponent>()->position.y > 300)
+            player.getComponent<TextureComponent>()->setSrcX(24 * 10); // 11 th sprite in the current spritesheet
     }
 }
 

@@ -30,6 +30,7 @@ public:
     }
 
     template <class... TArgs> [[nodiscard]] bool hasComponents() const {
+        // Reference: https://github.com/chrischristakis/seecs/blob/master/seecs.h#L526
         // Fold operator, reads as
         // (hasComponent<Transform>() && hasComponent<Physics>() && hasComponent<Sprite>() && ...)
         return (hasComponent<TArgs>() && ...);
@@ -44,7 +45,7 @@ public:
         // by passing the args into its constructor
         //
         // Fix: Explicitly pass args to std::forward<T>(args)
-        // see
+        // Refrence:
         // https://stackoverflow.com/questions/48501797/no-matching-function-for-call-stdforwardconst-stdstring-with-variadic-ar
         std::unique_ptr<T> component = std::make_unique<T>(std::forward<TArgs>(componentArgs)...);
 
@@ -66,15 +67,15 @@ public:
         return *static_cast<T *>(components[componentID].get());
     }
 
-    template <class T> T &getComponent() const {
+    template <class T> T *getComponent() const {
         static_assert(std::is_base_of_v<Component, T>, "T must inherit from Component");
 
         auto it = components.find(getComponentTypeID<T>());
         if (it != components.end()) {
-            return *static_cast<T *>(it->second.get());
+            return static_cast<T *>(it->second.get());
         }
 
-        throw *static_cast<T *>(nullptr);
+        return nullptr;
     }
 
     template <class T> void removeComponent() {
