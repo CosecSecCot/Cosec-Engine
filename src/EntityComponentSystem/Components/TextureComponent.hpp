@@ -8,12 +8,12 @@
 class TextureComponent : public Component {
 public:
     TextureComponent() = delete;
-    TextureComponent(const std::string &path, TransformComponent &transform) : transform(&transform) {
+    explicit TextureComponent(const std::string &path, TransformComponent &transform) : transform(&transform) {
         assert(this->transform != nullptr && "TransformComponent cannot be null!");
 
         this->texture = TextureManager::loadTexture(path);
 
-        // TODO: Change it to actual width and height of texture
+        // TODO: Change the x, y according to the texture
         this->srcRect.x = 0;
         this->srcRect.y = 0;
         this->srcRect.w = this->transform->width;
@@ -51,5 +51,5 @@ public:
 private:
     TransformComponent *transform;
     SDL_Texture *texture;
-    SDL_Rect srcRect, destRect;
+    SDL_Rect srcRect{}, destRect{};
 };

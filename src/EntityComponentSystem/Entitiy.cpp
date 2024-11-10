@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include "EntityComponentSystem/Components/ColliderComponent.hpp"
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
 
 Entity::Entity() = default;
@@ -17,4 +18,8 @@ void Entity::render() const {
     if (hasComponent<TextureComponent>()) {
         getComponent<TextureComponent>()->render();
     }
+
+    // if (hasComponent<ColliderComponent>()) {
+    //     getComponent<ColliderComponent>()->render();
+    // }
 }

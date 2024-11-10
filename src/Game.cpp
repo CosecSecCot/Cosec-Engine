@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "EntityComponentSystem/Components/ColliderComponent.hpp"
 #include "EntityComponentSystem/Components/KeyboardInput.hpp"
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
 #include "EntityComponentSystem/Components/TransformComponent.hpp"
@@ -71,8 +72,9 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     playerTransform.scale = 2;
     player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerTransform);
     player.addComponent<KeyboardInput>(playerTransform);
+    player.addComponent<ColliderComponent>(playerTransform, 12, 20, 6, 2);
 
-    if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput>()) {
+    if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput, ColliderComponent>()) {
         std::cout << "[INFO] Player has been initialized." << '\n';
     } else {
         std::cout << "[ERROR] Player doesn't have all the components." << '\n';
