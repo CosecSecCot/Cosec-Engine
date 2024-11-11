@@ -16,6 +16,6 @@ public:
     TransformComponent(float x, float y, int w, int h) : position(Vector2D(x, y)), width(w), height(h) {}
 
     void update() override {
-        position += (speed * velocity);
+        position += (speed * velocity.normalized());
     }
 };
