@@ -13,6 +13,7 @@
 TileMap *tileMap;
 
 ECS ecs;
+Entity &rock = ecs.addEntity();
 Entity &player = ecs.addEntity();
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -74,6 +75,11 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     player.addComponent<KeyboardInput>(playerTransform);
     player.addComponent<ColliderComponent>(playerTransform, 12, 20, 6, 2);
 
+    auto &rockTransform = rock.addComponent<TransformComponent>(544, 288, 16, 16);
+    rockTransform.scale = 2;
+    rock.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", rockTransform, 64, 128);
+    rock.addComponent<ColliderComponent>(rockTransform);
+
     if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput, ColliderComponent>()) {
         std::cout << "[INFO] Player has been initialized." << '\n';
     } else {
@@ -104,6 +110,14 @@ void Game::update() {
         else
             player.getComponent<TextureComponent>()->setSrcX(0); // 1st sprite in the current spritesheet
     }
+
+    if (player.getComponent<ColliderComponent>() != nullptr && rock.getComponent<ColliderComponent>() != nullptr) {
+        if (ColliderComponent::Collision(&player.getComponent<ColliderComponent>()->collider,
+                                         &rock.getComponent<ColliderComponent>()->collider)) {
+            player.getComponent<TransformComponent>()->scale = 1;
+            std::cout << "Colliding with rock!" << '\n';
+        }
+    }
 }
 
 void Game::render() {
@@ -111,6 +125,8 @@ void Game::render() {
 
     tileMap->render();
     ecs.render();
+    player.getComponent<ColliderComponent>()->debug();
+    rock.getComponent<ColliderComponent>()->debug();
 
     SDL_RenderPresent(Game::renderer);
 }

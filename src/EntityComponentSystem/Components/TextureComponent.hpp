@@ -8,12 +8,12 @@
 class TextureComponent : public Component {
 public:
     TextureComponent() = delete;
+
     explicit TextureComponent(const std::string &path, TransformComponent &transform) : transform(&transform) {
         assert(this->transform != nullptr && "TransformComponent cannot be null!");
 
         this->texture = TextureManager::loadTexture(path);
 
-        // TODO: Change the x, y according to the texture
         this->srcRect.x = 0;
         this->srcRect.y = 0;
         this->srcRect.w = this->transform->width;
@@ -25,11 +25,22 @@ public:
         this->destRect.h = srcRect.h * this->transform->scale;
     }
 
+    explicit TextureComponent(const std::string &path, TransformComponent &transform, int srcX, int srcY)
+        : TextureComponent(path, transform) {
+        this->srcRect.x = srcX;
+        this->srcRect.y = srcY;
+    }
+
     ~TextureComponent() override {
         SDL_DestroyTexture(this->texture);
     }
 
     void update() override {
+        // Lets say we adjusted the scale during a frame
+        // then texture's size should also change
+        this->destRect.w = srcRect.w * this->transform->scale;
+        this->destRect.h = srcRect.h * this->transform->scale;
+
         this->destRect.x = static_cast<int>(transform->position.x);
         this->destRect.y = static_cast<int>(transform->position.y);
     }
