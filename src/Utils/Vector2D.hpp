@@ -10,6 +10,7 @@ public:
     float x, y;
 
     Vector2D() : x(0), y(0) {}
+    Vector2D(float k) : x(k), y(k) {}
     Vector2D(float x, float y) : x(x), y(y) {}
 
     Vector2D operator+(const Vector2D &other) const {
@@ -58,6 +59,22 @@ public:
 
     bool operator!=(const Vector2D &other) const {
         return !(*this == other);
+    }
+
+    bool operator<(const Vector2D &other) const {
+        return (x < other.x) || (x == other.x && y < other.y);
+    }
+
+    bool operator<=(const Vector2D &other) const {
+        return *this < other || *this == other;
+    }
+
+    bool operator>(const Vector2D &other) const {
+        return (x > other.x) || (x == other.x && y > other.y);
+    }
+
+    bool operator>=(const Vector2D &other) const {
+        return *this > other || *this == other;
     }
 
     // Assignment operator

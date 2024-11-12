@@ -5,7 +5,8 @@
 #define UPSCALE_FACTOR 2
 
 #define RANDOM_VARIANT(type) static_cast<int>(rand() % this->tileRects[(type)].size())
-#define ADD_TILE(type, x, y) tiles.push_back(Tile{(type), RANDOM_VARIANT(type), (x), (y)});
+#define ADD_TILE(type, x, y) tiles[Vector2D((x), (y))] = Tile{(type), RANDOM_VARIANT(type), (x), (y)};
+
 #define ADD_CONTD(type, row, start, end)                                                                               \
     for (int i = start; i <= end; i++) ADD_TILE(type, i, (row))
 
@@ -32,7 +33,7 @@ TileMap::TileMap(int tileSize) : tileSize(tileSize) {
         SDL_Rect{176, 208, tileSize, tileSize}, // Variant: 1
         SDL_Rect{192, 208, tileSize, tileSize}, // Variant: 2
         SDL_Rect{208, 208, tileSize, tileSize}, // Variant: 3
-        // SDL_Rect{176, 224, tileSize, tileSize}, // Variant: 4 (darker)
+        // SDL_Rect{176, 224, tileSize, tileSize}, // Variant: 4 (darker) // will use later
         SDL_Rect{192, 224, tileSize, tileSize}, // Variant: 5
         SDL_Rect{208, 224, tileSize, tileSize}, // Variant: 6
     };
@@ -41,15 +42,10 @@ TileMap::TileMap(int tileSize) : tileSize(tileSize) {
     {
         srand(time(nullptr));
 
-        for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 40; j++) {
-                // tiles.push_back(Tile{TileType::WATER, RANDOM_VARIANT(TileType::WATER), i, j});
-                ADD_TILE(TileType::WATER, i, j);
-            }
+        for (int j = 0; j < 40; j++) {
+            ADD_CONTD(TileType::WATER, j, 0, 49);
         }
 
-        // For now, some of the values are overriding but I will overlook it
-        // tiles.push_back(Tile{TileType::DIRT, RANDOM_VARIANT(TileType::DIRT), 0, 0});
         ADD_TILE(TileType::DIRT, 0, 0);
         ADD_CONTD(TileType::GRASS, 0, 1, 3);
         ADD_CONTD(TileType::GRASS, 0, 17, 24);
@@ -124,7 +120,7 @@ TileMap::~TileMap() {
 }
 
 void TileMap::render() {
-    for (Tile tile : tiles) {
+    for (auto &[pos, tile] : tiles) {
         SDL_Rect dest = {tile.xPos * tileSize * UPSCALE_FACTOR, tile.yPos * tileSize * UPSCALE_FACTOR,
                          tileSize * UPSCALE_FACTOR, tileSize * UPSCALE_FACTOR};
         SDL_RenderCopy(Game::renderer, this->tileSheet, &tileRects[tile.type][tile.variant], &dest);

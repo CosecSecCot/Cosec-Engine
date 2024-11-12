@@ -1,5 +1,6 @@
 #ifndef TileMap_hpp
 #define TileMap_hpp
+#include "Utils/Vector2D.hpp"
 #pragma once
 
 #include "SDL.h"
@@ -29,10 +30,10 @@ public:
 
 private:
     int tileSize;
-    std::vector<Tile> tiles; // The tile objects that are going to be rendered on the screen.
 
     SDL_Texture *tileSheet;                              // The tiles sprite-sheet
-    std::map<TileType, std::vector<SDL_Rect>> tileRects; // position of the individual tiles in the spriteSheet
+    std::map<TileType, std::vector<SDL_Rect>> tileRects; // Variants of a specific TileType (their src rects)
+    std::map<Vector2D, Tile> tiles; // The tile objects that are going to be rendered on the screen.
 };
 
 #endif /* TileMap.hpp */
