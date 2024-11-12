@@ -45,8 +45,8 @@ public:
         SDL_SetRenderDrawColor(Game::renderer, 0, 255, 0, 255);
     }
 
-    static bool Collision(const SDL_Rect *rect1, const SDL_Rect *rect2) {
-        return SDL_HasIntersection(rect1, rect2);
+    static bool Collision(const SDL_Rect &rect1, const SDL_Rect &rect2) {
+        return SDL_HasIntersection(&rect1, &rect2);
     }
 
 private:

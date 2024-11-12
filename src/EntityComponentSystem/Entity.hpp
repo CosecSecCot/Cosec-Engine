@@ -86,6 +86,8 @@ public:
         assert(false && "removeComponent<T>() has not been implemented yet.");
     }
 
+    void resolveStaticCollision(const Entity &other) const;
+
 private:
     bool active = true;
     std::map<ComponentID, std::unique_ptr<Component>> components;

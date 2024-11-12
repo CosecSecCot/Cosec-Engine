@@ -111,13 +111,7 @@ void Game::update() {
             player.getComponent<TextureComponent>()->setSrcX(0); // 1st sprite in the current spritesheet
     }
 
-    if (player.getComponent<ColliderComponent>() != nullptr && rock.getComponent<ColliderComponent>() != nullptr) {
-        if (ColliderComponent::Collision(&player.getComponent<ColliderComponent>()->collider,
-                                         &rock.getComponent<ColliderComponent>()->collider)) {
-            player.getComponent<TransformComponent>()->scale = 1;
-            std::cout << "Colliding with rock!" << '\n';
-        }
-    }
+    player.resolveStaticCollision(rock);
 }
 
 void Game::render() {
