@@ -2,8 +2,11 @@
 #define Game_hpp
 #pragma once
 
+#include "EntityComponentSystem/Entity.hpp"
 #include "SDL.h"
+
 #include <string>
+#include <vector>
 
 class Game {
 public:
@@ -12,6 +15,8 @@ public:
 
     static SDL_Renderer *renderer;
     static SDL_Event event;
+
+    static std::vector<Entity *> colliders;
 
     Game();
     ~Game();

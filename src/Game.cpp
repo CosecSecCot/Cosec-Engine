@@ -4,20 +4,26 @@
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
 #include "EntityComponentSystem/Components/TransformComponent.hpp"
 #include "EntityComponentSystem/ECS.hpp"
+#include "EntityComponentSystem/Entity.hpp"
 #include "SDL_image.h"
 #include "TileMap.hpp"
 
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 TileMap *tileMap;
 
 ECS ecs;
 Entity &rock = ecs.addEntity();
+Entity &tree = ecs.addEntity();
+
 Entity &player = ecs.addEntity();
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
+
+std::vector<Entity *> Game::colliders;
 
 Game::Game() {
     this->isRunning = false;
@@ -79,6 +85,13 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     rockTransform.scale = 2;
     rock.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", rockTransform, 64, 128);
     rock.addComponent<ColliderComponent>(rockTransform);
+    Game::colliders.push_back(&rock);
+
+    auto &treeTransform = tree.addComponent<TransformComponent>(620, 176, 80, 112);
+    treeTransform.scale = 2;
+    tree.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", treeTransform, 176, 0);
+    tree.addComponent<ColliderComponent>(treeTransform, 16, 16, 32, 96);
+    Game::colliders.push_back(&tree);
 
     if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput, ColliderComponent>()) {
         std::cout << "[INFO] Player has been initialized." << '\n';
@@ -111,7 +124,9 @@ void Game::update() {
             player.getComponent<TextureComponent>()->setSrcX(0); // 1st sprite in the current spritesheet
     }
 
-    player.resolveStaticCollision(rock);
+    for (auto collider : Game::colliders) {
+        player.resolveStaticCollision(*collider);
+    }
 }
 
 void Game::render() {
@@ -120,7 +135,9 @@ void Game::render() {
     tileMap->render();
     ecs.render();
     player.getComponent<ColliderComponent>()->debug();
-    rock.getComponent<ColliderComponent>()->debug();
+    for (auto collider : Game::colliders) {
+        collider->getComponent<ColliderComponent>()->debug();
+    }
 
     SDL_RenderPresent(Game::renderer);
 }
