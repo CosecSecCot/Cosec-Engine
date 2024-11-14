@@ -33,10 +33,23 @@ void Entity::resolveStaticCollision(const Entity &other) const {
     auto collider = this->getComponent<ColliderComponent>();
     auto otherCollider = other.getComponent<ColliderComponent>();
 
-    if (ColliderComponent::Collision(collider->collider, otherCollider->collider)) {
+    SDL_Rect intersection;
+    if (ColliderComponent::Collision(collider->collider, otherCollider->collider, intersection)) {
         auto transform = this->getComponent<TransformComponent>();
         auto otherTransform = other.getComponent<TransformComponent>();
 
-        // TODO: do something about collision
+        if (intersection.w < intersection.h) {
+            if (collider->collider.x < otherCollider->collider.x) {
+                transform->position.x -= static_cast<float>(intersection.w);
+            } else {
+                transform->position.x += static_cast<float>(intersection.w);
+            }
+        } else {
+            if (collider->collider.y < otherCollider->collider.y) {
+                transform->position.y -= static_cast<float>(intersection.h);
+            } else {
+                transform->position.y += static_cast<float>(intersection.h);
+            }
+        }
     }
 }
