@@ -15,7 +15,6 @@
 TileMap *tileMap;
 
 ECS ecs;
-Entity &rock = ecs.addEntity();
 Entity &tree = ecs.addEntity();
 
 Entity &player = ecs.addEntity();
@@ -25,7 +24,7 @@ SDL_Event Game::event;
 
 std::vector<Entity *> Game::colliders;
 
-bool Game::renderDebug = true;
+bool Game::renderDebug = false;
 
 Game::Game() {
     this->isRunning = false;
@@ -84,17 +83,10 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     player.addComponent<KeyboardInput>(playerTransform);
     player.addComponent<ColliderComponent>(playerTransform, 8, 2, 8, 20);
 
-    auto &rockTransform = rock.addComponent<TransformComponent>(544, 288, 16, 16);
-    rockTransform.scale = 2;
-    rock.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", rockTransform, 64, 128,
-                                        Vector2D(0.5, 0.7));
-    rock.addComponent<ColliderComponent>(rockTransform);
-    Game::colliders.push_back(&rock);
-
     auto &treeTransform = tree.addComponent<TransformComponent>(620, 176, 80, 112);
     treeTransform.scale = 2;
     tree.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", treeTransform, 176, 0,
-                                        Vector2D(0.5, 0.95));
+                                        Vector2D(0.5, 0.86));
     tree.addComponent<ColliderComponent>(treeTransform, 16, 16, 32, 96);
     Game::colliders.push_back(&tree);
 

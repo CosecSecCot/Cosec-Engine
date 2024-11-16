@@ -1,4 +1,6 @@
 #include "ECS.hpp"
+#include "EntityComponentSystem/Components/TextureComponent.hpp"
+#include <algorithm>
 
 void ECS::update() {
     for (auto &entity : this->entities) {
@@ -7,6 +9,12 @@ void ECS::update() {
 }
 
 void ECS::render() {
+    std::sort(entities.begin(), entities.end(), [](std::unique_ptr<Entity> &a, std::unique_ptr<Entity> &b) {
+        if (!(a->hasComponent<TextureComponent>() && b->hasComponent<TextureComponent>()))
+            return false;
+        return a->getComponent<TextureComponent>()->pivot.y < b->getComponent<TextureComponent>()->pivot.y;
+    });
+
     for (auto &entity : this->entities) {
         entity->render();
     }
