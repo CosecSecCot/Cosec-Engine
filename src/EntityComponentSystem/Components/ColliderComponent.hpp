@@ -41,8 +41,12 @@ public:
     }
 
     void debug() {
-        SDL_RenderDrawRect(Game::renderer, &collider);
+        assert(Game::renderer != nullptr && "Renderer cannot be null.");
+        if (!Game::renderDebug)
+            return;
+
         SDL_SetRenderDrawColor(Game::renderer, 0, 255, 0, 255);
+        SDL_RenderDrawRect(Game::renderer, &collider);
     }
 
     static bool Collision(const SDL_Rect &rect1, const SDL_Rect &rect2, SDL_Rect &intersection) {

@@ -120,6 +120,8 @@ TileMap::~TileMap() {
 }
 
 void TileMap::render() {
+    assert(Game::renderer != nullptr && "Renderer cannot be null.");
+
     for (auto &[pos, tile] : tiles) {
         SDL_Rect dest = {tile.xPos * tileSize * UPSCALE_FACTOR, tile.yPos * tileSize * UPSCALE_FACTOR,
                          tileSize * UPSCALE_FACTOR, tileSize * UPSCALE_FACTOR};

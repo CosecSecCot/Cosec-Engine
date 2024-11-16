@@ -18,6 +18,8 @@ public:
 
     static std::vector<Entity *> colliders;
 
+    static bool renderDebug;
+
     Game();
     ~Game();
 
