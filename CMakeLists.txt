@@ -23,7 +23,10 @@ include_dependency(SDL2 https://github.com/libsdl-org/SDL release-2.30.8)
 # SDL2_image
 include_dependency(SDL2_image https://github.com/libsdl-org/SDL_image release-2.8.2)
 
-file(GLOB_RECURSE SRC_FILES src/*.cpp)
+# Add pugixml from the third_party directory
+add_subdirectory(third_party/pugixml)
+
+file(GLOB_RECURSE SRC_FILES src/*.cpp third_party/pugixml/src/*.cpp)
 
 add_executable(topDownGame main.cpp ${SRC_FILES})
 target_include_directories(topDownGame PRIVATE src)
