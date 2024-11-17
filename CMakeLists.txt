@@ -30,6 +30,7 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp third_party/pugixml/src/*.cpp)
 
 add_executable(topDownGame main.cpp ${SRC_FILES})
 target_include_directories(topDownGame PRIVATE src)
+target_include_directories(topDownGame PRIVATE src third_party/pugixml/src)
 
 target_include_directories(
     topDownGame
