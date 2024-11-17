@@ -39,6 +39,8 @@ TileMap::TileMap(int tileSize) : tileSize(tileSize) {
     };
 
     // Try Load from a file
+    loadMap("assets/tiles/untitled.tmx");
+
     {
         srand(time(nullptr));
 
