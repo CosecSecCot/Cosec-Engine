@@ -23,20 +23,21 @@ include_dependency(SDL2 https://github.com/libsdl-org/SDL release-2.30.8)
 # SDL2_image
 include_dependency(SDL2_image https://github.com/libsdl-org/SDL_image release-2.8.2)
 
-# Add pugixml from the third_party directory
-add_subdirectory(third_party/pugixml)
+# Add nlohmann_json from the third_party directory
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(third_party/nlohmann_json)
 
-file(GLOB_RECURSE SRC_FILES src/*.cpp third_party/pugixml/src/*.cpp)
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
 add_executable(topDownGame main.cpp ${SRC_FILES})
 target_include_directories(topDownGame PRIVATE src)
-target_include_directories(topDownGame PRIVATE src third_party/pugixml/src)
 
 target_include_directories(
     topDownGame
     PUBLIC
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
+    third_party/nlohmann_json/include
 )
 
 target_link_libraries(
@@ -45,6 +46,7 @@ target_link_libraries(
     SDL2
     SDL2main
     SDL2_image
+    nlohmann_json
 )
 
 if (WIN32)
