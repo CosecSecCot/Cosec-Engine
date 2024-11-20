@@ -1,0 +1,33 @@
+{ "columns":16,
+ "image":"seasonal sample (autumn).png",
+ "imageheight":256,
+ "imagewidth":256,
+ "margin":0,
+ "name":"seasonal sample (autumn)",
+ "spacing":0,
+ "tilecount":256,
+ "tiledversion":"1.11.0",
+ "tileheight":16,
+ "tiles":[
+        {
+         "id":16,
+         "properties":[
+                {
+                 "name":"type",
+                 "type":"string",
+                 "value":"grass"
+                }]
+        }, 
+        {
+         "id":32,
+         "properties":[
+                {
+                 "name":"type",
+                 "type":"string",
+                 "value":"grass"
+                }]
+        }],
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

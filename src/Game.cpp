@@ -76,14 +76,14 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     // SDL_RenderSetLogicalSize(Game::renderer, width / 2, height / 2);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 
-    auto &playerTransform = player.addComponent<TransformComponent>(500, 250, 24, 24);
+    auto &playerTransform = player.addComponent<TransformComponent>(22 * 16 * 2, 4 * 16 * 2, 24, 24);
     playerTransform.scale = 2;
     player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerTransform, 0, 0,
                                           Vector2D(0.5, 0.85));
     player.addComponent<KeyboardInput>(playerTransform);
     player.addComponent<ColliderComponent>(playerTransform, 8, 2, 8, 20);
 
-    auto &treeTransform = tree.addComponent<TransformComponent>(620, 176, 80, 112);
+    auto &treeTransform = tree.addComponent<TransformComponent>(23 * 16 * 2, 1 * 16 * 2, 80, 112);
     treeTransform.scale = 2;
     tree.addComponent<TextureComponent>("assets/tiles/seasonal sample (autumn).png", treeTransform, 176, 0,
                                         Vector2D(0.5, 0.86));
@@ -97,7 +97,7 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
         exit(1);
     }
 
-    tileMap = new TileMap(16);
+    tileMap = new TileMap("assets/tiles/untitled.json");
 }
 
 void Game::handleEvents() {
