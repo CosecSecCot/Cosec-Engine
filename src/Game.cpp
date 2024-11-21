@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "EntityComponentSystem/Components/AnimationComponent.hpp"
 #include "EntityComponentSystem/Components/ColliderComponent.hpp"
 #include "EntityComponentSystem/Components/KeyboardInput.hpp"
 #include "EntityComponentSystem/Components/TextureComponent.hpp"
@@ -78,10 +79,37 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
 
     auto &playerTransform = player.addComponent<TransformComponent>(22 * 16 * 2, 4 * 16 * 2, 24, 24);
     playerTransform.scale = 2;
-    player.addComponent<TextureComponent>("assets/player/IDLES_5_frames.png", playerTransform, 0, 0,
-                                          Vector2D(0.5, 0.85));
-    player.addComponent<KeyboardInput>(playerTransform);
+    auto &playerTexture =
+        player.addComponent<TextureComponent>("assets/player/player.png", playerTransform, 0, 0, Vector2D(0.5, 0.85));
     player.addComponent<ColliderComponent>(playerTransform, 8, 2, 8, 20);
+
+    auto &playerAnimation = player.addComponent<AnimationComponent>(playerTexture);
+
+    // Idle Animations
+    auto playerIdleDown = Animation{0, 5, 100};
+    auto playerIdleBottomDiagonal = Animation{1, 5, 100};
+    auto playerIdleSide = Animation{2, 5, 100};
+    auto playerIdleTopDiagonal = Animation{3, 5, 100};
+    auto playerIdleUp = Animation{4, 5, 100};
+    playerAnimation.addAnimation("idleDown", playerIdleDown);
+    playerAnimation.addAnimation("idleBottomDiagonal", playerIdleBottomDiagonal);
+    playerAnimation.addAnimation("idleSide", playerIdleSide);
+    playerAnimation.addAnimation("idleTopDiagonal", playerIdleTopDiagonal);
+    playerAnimation.addAnimation("idleUp", playerIdleUp);
+
+    // Walk Animations
+    auto playerWalkDown = Animation{5, 3, 75};
+    auto playerWalkBottomDiagonal = Animation{6, 3, 75};
+    auto playerWalkSide = Animation{7, 3, 75};
+    auto playerWalkTopDiagonal = Animation{8, 3, 75};
+    auto playerWalkUp = Animation{9, 3, 75};
+    playerAnimation.addAnimation("walkDown", playerWalkDown);
+    playerAnimation.addAnimation("walkBottomDiagonal", playerWalkBottomDiagonal);
+    playerAnimation.addAnimation("walkSide", playerWalkSide);
+    playerAnimation.addAnimation("walkTopDiagonal", playerWalkTopDiagonal);
+    playerAnimation.addAnimation("walkUp", playerWalkUp);
+
+    player.addComponent<KeyboardInput>(playerTransform, playerAnimation);
 
     auto &treeTransform = tree.addComponent<TransformComponent>(23 * 16 * 2, 1 * 16 * 2, 80, 112);
     treeTransform.scale = 2;
@@ -90,7 +118,8 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
     tree.addComponent<ColliderComponent>(treeTransform, 16, 16, 32, 96);
     Game::colliders.push_back(&tree);
 
-    if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput, ColliderComponent>()) {
+    if (player.hasComponents<TransformComponent, TextureComponent, KeyboardInput, ColliderComponent,
+                             AnimationComponent>()) {
         std::cout << "[INFO] Player has been initialized." << '\n';
     } else {
         std::cout << "[ERROR] Player doesn't have all the components." << '\n';
@@ -114,12 +143,6 @@ void Game::handleEvents() {
 
 void Game::update() {
     ecs.update();
-    if (player.getComponent<TransformComponent>() != nullptr) {
-        if (player.getComponent<TransformComponent>()->position.y > 300)
-            player.getComponent<TextureComponent>()->setSrcX(24 * 10); // 11th sprite in the current spritesheet
-        else
-            player.getComponent<TextureComponent>()->setSrcX(0); // 1st sprite in the current spritesheet
-    }
 
     for (auto collider : Game::colliders) {
         player.resolveStaticCollision(*collider);

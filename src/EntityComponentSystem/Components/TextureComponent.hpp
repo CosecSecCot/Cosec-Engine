@@ -9,6 +9,7 @@ class TextureComponent : public Component {
 public:
     Vector2D pivotOffset{0.5, 0.5};
     Vector2D pivot;
+    SDL_Rect srcRect{}, destRect{};
 
     TextureComponent() = delete;
 
@@ -78,16 +79,7 @@ public:
         SDL_RenderDrawPoint(Game::renderer, static_cast<int>(pivot.x), static_cast<int>(pivot.y));
     }
 
-    void setSrcX(int x) {
-        this->srcRect.x = x;
-    }
-
-    void setSrcY(int y) {
-        this->srcRect.y = y;
-    }
-
 private:
     TransformComponent *transform;
     SDL_Texture *texture;
-    SDL_Rect srcRect{}, destRect{};
 };
