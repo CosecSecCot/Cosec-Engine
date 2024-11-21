@@ -26,48 +26,39 @@ public:
             break;
         }
 
-        // For each frame calculate velocity
-        // inidividually
+        // Assuming: For this frame player is not moving
+        if (transform->velocity.x < 0) {
+            animation->play("idleSide");
+        } else if (transform->velocity.x > 0) {
+            animation->play("idleSide");
+        } else if (transform->velocity.y < 0) {
+            animation->play("idleUp");
+        } else if (transform->velocity.y > 0) {
+            animation->play("idleDown");
+        }
         transform->velocity = {0, 0};
 
-        if (keyboardState[SDLK_UP] || keyboardState[SDLK_w]) {
-            if (transform->velocity.y == 1) {
-                transform->velocity.y = 0;
-                animation->play("idleDown");
-            } else {
-                transform->velocity.y = -1;
-                animation->play("walkUp");
-            }
+        // For each frame, we are seeing in which direction
+        // player is trying to move
+        if ((keyboardState[SDLK_UP] || keyboardState[SDLK_w]) && (keyboardState[SDLK_DOWN] || keyboardState[SDLK_s])) {
+            transform->velocity.y = 0;
+        } else if (keyboardState[SDLK_UP] || keyboardState[SDLK_w]) {
+            transform->velocity.y = -1;
+            animation->play("walkUp");
+        } else if (keyboardState[SDLK_DOWN] || keyboardState[SDLK_s]) {
+            transform->velocity.y = 1;
+            animation->play("walkDown");
         }
 
-        if (keyboardState[SDLK_LEFT] || keyboardState[SDLK_a]) {
-            if (transform->velocity.x == 1) {
-                transform->velocity.x = 0;
-                animation->play("idleSide");
-            } else {
-                transform->velocity.x = -1;
-                animation->play("walkSide");
-            }
-        }
-
-        if (keyboardState[SDLK_DOWN] || keyboardState[SDLK_s]) {
-            if (transform->velocity.y == -1) {
-                transform->velocity.y = 0;
-                animation->play("idleUp");
-            } else {
-                transform->velocity.y = 1;
-                animation->play("walkDown");
-            }
-        }
-
-        if (keyboardState[SDLK_RIGHT] || keyboardState[SDLK_d]) {
-            if (transform->velocity.x == -1) {
-                transform->velocity.x = 0;
-                animation->play("idleSide");
-            } else {
-                transform->velocity.x = 1;
-                animation->play("walkSide");
-            }
+        if ((keyboardState[SDLK_LEFT] || keyboardState[SDLK_a]) &&
+            (keyboardState[SDLK_RIGHT] || keyboardState[SDLK_d])) {
+            transform->velocity.x = 0;
+        } else if (keyboardState[SDLK_LEFT] || keyboardState[SDLK_a]) {
+            transform->velocity.x = -1;
+            animation->play("walkSide");
+        } else if (keyboardState[SDLK_RIGHT] || keyboardState[SDLK_d]) {
+            transform->velocity.x = 1;
+            animation->play("walkSide");
         }
     }
 
