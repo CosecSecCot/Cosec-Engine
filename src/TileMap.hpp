@@ -19,14 +19,16 @@ struct Tile {
 
 class TileMap {
 public:
+    uint16_t tileSize;
+    int width, height;
+
+    TileMap() = delete;
     explicit TileMap(const std::string &path);
     ~TileMap();
 
     void render();
 
 private:
-    int tileSize;
-
     SDL_Texture *tileSet;              // The tileset
     std::map<int, SDL_Rect> tileRects; // src rects of the tiles in tileset (tileID -> SDL_Rect)
     std::map<Vector2D, Tile> tiles;    // The tile objects that are going to be rendered on the screen.
@@ -42,8 +44,19 @@ private:
 
         int _tileWidth = data["tilewidth"].get<int>();
         int _tileHeight = data["tileheight"].get<int>();
+
+        if (_tileWidth <= 0 || _tileHeight <= 0) {
+            std::cout << "[ERROR] Couldn't load tileset, invalid tile size.\n";
+            return -1;
+        }
+
         int imageWidth = data["imagewidth"].get<int>();
         int imageHeight = data["imageheight"].get<int>();
+
+        if (imageWidth <= 0 || imageHeight <= 0) {
+            std::cout << "[ERROR] Couldn't load tileset, invalid image size.\n";
+            return -1;
+        }
 
         printf("tileWidth: %d\ntileHeight: %d\nimageWidth: %d\nimageHeight: %d\n", _tileWidth, _tileHeight, imageWidth,
                imageHeight);
@@ -65,14 +78,30 @@ private:
 
         std::string tileSetFileLocation = "assets/tiles/" + data["tilesets"][0]["source"].get<std::string>();
         std::cout << "Loading Tileset : \"" << tileSetFileLocation << "\"\n";
-        loadTileSet(tileSetFileLocation);
+        if (loadTileSet(tileSetFileLocation) != 0) {
+            std::cout << "[ERROR] Couldn't load tilemap, invalid tileset.\n";
+            return -1;
+        }
 
         std::cout << "Loading TileMap...\n";
 
-        this->tileSize = data["tileheight"].get<int>();
+        int _tileSize = data["tileheight"].get<int>();
+        if (_tileSize <= 0) {
+            std::cout << "[ERROR] Couldn't load tilemap, invalid tile size.\n";
+            return -1;
+        }
+
+        this->tileSize = _tileSize;
 
         int mapWidth = data["width"].get<int>();
         int mapHeight = data["height"].get<int>();
+        if (mapWidth <= 0 || mapHeight <= 0) {
+            std::cout << "[ERROR] Couldn't load tilemap, invalid map size.\n";
+            return -1;
+        }
+
+        this->width = mapWidth;
+        this->height = mapHeight;
 
         printf("tilesize: %d\nmapWidth: %d\nmapHeight: %d\n", tileSize, mapWidth, mapHeight);
 

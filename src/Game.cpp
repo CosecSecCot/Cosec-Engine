@@ -23,6 +23,8 @@ Entity &player = ecs.addEntity();
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
 
+SDL_Rect Game::camera = {0, 0, 0, 0};
+
 std::vector<Entity *> Game::colliders;
 
 bool Game::renderDebug = false;
@@ -37,7 +39,7 @@ Game::~Game() {
 }
 
 void Game::init(const std::string &title, int x_pos, int y_pos, int width, int height, bool fullscreen) {
-    int sdlWindowFlags = SDL_WINDOW_SHOWN;
+    int sdlWindowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
     if (fullscreen) {
         sdlWindowFlags |= SDL_WINDOW_FULLSCREEN;
     }
@@ -143,6 +145,24 @@ void Game::handleEvents() {
 
 void Game::update() {
     ecs.update();
+
+    auto playerTransform = player.getComponent<TransformComponent>();
+
+    SDL_GetWindowSize(Game::window, &Game::camera.w, &Game::camera.h);
+
+    camera.x += (static_cast<int>(playerTransform->position.x) - (camera.w / 2) +
+                 (playerTransform->width * playerTransform->scale / 2) - camera.x) /
+                10;
+    camera.y += (static_cast<int>(playerTransform->position.y) - (camera.h / 2) +
+                 (playerTransform->height * playerTransform->scale / 2) - camera.y) /
+                10;
+
+    camera.x = std::max(camera.x, 0);
+    camera.x = std::min(camera.x, (2 * tileMap->width * tileMap->tileSize) - camera.w);
+    camera.y = std::max(camera.y, 0);
+    camera.y = std::min(camera.y, (2 * tileMap->height * tileMap->tileSize) - camera.h);
+
+    // std::cout << "Camera: " << camera.x << ' ' << camera.y << ' ' << camera.w << ' ' << camera.h << '\n';
 
     for (auto collider : Game::colliders) {
         player.resolveStaticCollision(*collider);

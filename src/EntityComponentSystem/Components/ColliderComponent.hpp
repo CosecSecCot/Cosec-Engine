@@ -36,8 +36,8 @@ public:
         collider.w = this->width * this->transform->scale;
         collider.h = this->height * this->transform->scale;
 
-        collider.x = static_cast<int>(this->transform->position.x) + xOffset * this->transform->scale;
-        collider.y = static_cast<int>(this->transform->position.y) + yOffset * this->transform->scale;
+        collider.x = static_cast<int>(this->transform->position.x) + xOffset * this->transform->scale - Game::camera.x;
+        collider.y = static_cast<int>(this->transform->position.y) + yOffset * this->transform->scale - Game::camera.y;
     }
 
     void debug() {

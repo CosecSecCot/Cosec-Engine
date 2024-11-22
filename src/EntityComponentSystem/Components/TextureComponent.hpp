@@ -68,8 +68,8 @@ public:
         this->destRect.w = srcRect.w * this->transform->scale;
         this->destRect.h = srcRect.h * this->transform->scale;
 
-        this->destRect.x = static_cast<int>(transform->position.x);
-        this->destRect.y = static_cast<int>(transform->position.y);
+        this->destRect.x = static_cast<int>(transform->position.x) - Game::camera.x;
+        this->destRect.y = static_cast<int>(transform->position.y) - Game::camera.y;
 
         this->pivot = {(float)this->destRect.x + ((float)this->destRect.w * pivotOffset.x),
                        (float)this->destRect.y + ((float)this->destRect.h * pivotOffset.y)};
