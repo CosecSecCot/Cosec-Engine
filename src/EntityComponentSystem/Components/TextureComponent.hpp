@@ -50,6 +50,18 @@ public:
         SDL_DestroyTexture(this->texture);
     }
 
+    void flipHorizontal() {
+        this->flip = SDL_FLIP_HORIZONTAL;
+    }
+
+    void flipVertical() {
+        this->flip = SDL_FLIP_VERTICAL;
+    }
+
+    void flipReset() {
+        this->flip = SDL_FLIP_NONE;
+    }
+
     void update() override {
         // Lets say we adjusted the scale during a frame
         // then texture's size should also change
@@ -66,7 +78,7 @@ public:
     void render() {
         assert(Game::renderer != nullptr && "Renderer cannot be null.");
 
-        SDL_RenderCopy(Game::renderer, this->texture, &this->srcRect, &this->destRect);
+        SDL_RenderCopyEx(Game::renderer, this->texture, &this->srcRect, &this->destRect, 0.0, nullptr, flip);
     }
 
     void debug() const {
@@ -82,4 +94,5 @@ public:
 private:
     TransformComponent *transform;
     SDL_Texture *texture;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
 };

@@ -47,6 +47,18 @@ public:
         this->delay = animation.delay;
     }
 
+    void flipHorizontal() {
+        texture->flipHorizontal();
+    }
+
+    void flipVertical() {
+        texture->flipVertical();
+    }
+
+    void flipReset() {
+        texture->flipReset();
+    }
+
     void update() override {
         if (animations.empty() || (frames == 0)) {
             return;
