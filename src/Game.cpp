@@ -26,6 +26,7 @@ SDL_Event Game::event;
 SDL_Rect Game::camera = {0, 0, 0, 0};
 
 std::vector<Entity *> Game::colliders;
+std::unordered_map<SDL_Keycode, bool> Game::keyboardState;
 
 bool Game::renderDebug = false;
 
@@ -132,14 +133,20 @@ void Game::init(const std::string &title, int x_pos, int y_pos, int width, int h
 }
 
 void Game::handleEvents() {
-    SDL_PollEvent(&Game::event);
-
-    switch (Game::event.type) {
-    case SDL_QUIT:
-        isRunning = false;
-        break;
-    default:
-        break;
+    while (SDL_PollEvent(&Game::event)) {
+        switch (Game::event.type) {
+        case SDL_QUIT:
+            isRunning = false;
+            break;
+        case SDL_KEYDOWN:
+            Game::keyboardState[Game::event.key.keysym.sym] = true;
+            break;
+        case SDL_KEYUP:
+            Game::keyboardState[Game::event.key.keysym.sym] = false;
+            break;
+        default:
+            break;
+        }
     }
 }
 

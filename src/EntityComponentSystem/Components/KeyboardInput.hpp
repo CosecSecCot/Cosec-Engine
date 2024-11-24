@@ -2,7 +2,6 @@
 
 #include "EntityComponentSystem/Components/AnimationComponent.hpp"
 #include "Game.hpp"
-#include <unordered_map>
 
 #include "EntityComponentSystem/Component.hpp"
 #include "EntityComponentSystem/Components/TransformComponent.hpp"
@@ -15,17 +14,6 @@ public:
         : transform(&transform), animation(&animation) {}
 
     void update() override {
-        switch (Game::event.type) {
-        case SDL_KEYDOWN:
-            keyboardState[Game::event.key.keysym.sym] = true;
-            break;
-        case SDL_KEYUP:
-            keyboardState[Game::event.key.keysym.sym] = false;
-            break;
-        default:
-            break;
-        }
-
         // Assuming: For this frame player is not moving
         if (transform->velocity.x < 0) {
             animation->play("idleSide");
@@ -44,26 +32,27 @@ public:
 
         // For each frame, we are seeing in which direction
         // player is trying to move
-        if ((keyboardState[SDLK_UP] || keyboardState[SDLK_w]) && (keyboardState[SDLK_DOWN] || keyboardState[SDLK_s])) {
+        if ((Game::keyboardState[SDLK_UP] || Game::keyboardState[SDLK_w]) &&
+            (Game::keyboardState[SDLK_DOWN] || Game::keyboardState[SDLK_s])) {
             transform->velocity.y = 0;
-        } else if (keyboardState[SDLK_UP] || keyboardState[SDLK_w]) {
+        } else if (Game::keyboardState[SDLK_UP] || Game::keyboardState[SDLK_w]) {
             transform->velocity.y = -1;
             animation->play("walkUp");
             animation->flipReset();
-        } else if (keyboardState[SDLK_DOWN] || keyboardState[SDLK_s]) {
+        } else if (Game::keyboardState[SDLK_DOWN] || Game::keyboardState[SDLK_s]) {
             transform->velocity.y = 1;
             animation->play("walkDown");
             animation->flipReset();
         }
 
-        if ((keyboardState[SDLK_LEFT] || keyboardState[SDLK_a]) &&
-            (keyboardState[SDLK_RIGHT] || keyboardState[SDLK_d])) {
+        if ((Game::keyboardState[SDLK_LEFT] || Game::keyboardState[SDLK_a]) &&
+            (Game::keyboardState[SDLK_RIGHT] || Game::keyboardState[SDLK_d])) {
             transform->velocity.x = 0;
-        } else if (keyboardState[SDLK_LEFT] || keyboardState[SDLK_a]) {
+        } else if (Game::keyboardState[SDLK_LEFT] || Game::keyboardState[SDLK_a]) {
             transform->velocity.x = -1;
             animation->play("walkSide");
             animation->flipHorizontal();
-        } else if (keyboardState[SDLK_RIGHT] || keyboardState[SDLK_d]) {
+        } else if (Game::keyboardState[SDLK_RIGHT] || Game::keyboardState[SDLK_d]) {
             transform->velocity.x = 1;
             animation->play("walkSide");
             animation->flipReset();
@@ -73,5 +62,4 @@ public:
 private:
     TransformComponent *transform;
     AnimationComponent *animation;
-    std::unordered_map<SDL_Keycode, bool> keyboardState;
 };

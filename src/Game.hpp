@@ -6,6 +6,7 @@
 #include "SDL.h"
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 class Game {
@@ -18,6 +19,7 @@ public:
 
     static SDL_Rect camera;
 
+    static std::unordered_map<SDL_Keycode, bool> keyboardState;
     static std::vector<Entity *> colliders;
 
     static bool renderDebug;
