@@ -1,0 +1,72 @@
+# Ignore build directories
+/.cache/
+/build/
+/bin/
+/obj/
+/out/
+
+/Build/
+/Bin/
+/Obj/
+/Out/
+
+# Ignore common build files
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.libs
+*.dll
+*.dylib
+*.so
+*.a
+*.lib
+*.exe
+*.out
+*.app
+
+# Ignore CMake build files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Ignore Visual Studio files (if applicable)
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+
+# Ignore Code::Blocks files
+*.cbp
+*.layout
+
+# Ignore QtCreator files
+*.pro.user
+*.user
+*.qbs.user
+*.creator.user
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore debugging files
+*.dSYM/
+*.ipch/
+*.pdb
+*.log
+
+# Ignore SDL2 generated files or caches
+*.swp
+*.swo
+
+# Ignore CLion project files
+.idea/
+*.iml
+
+# Ignore any dependency files if using package managers (like vcpkg)
+vcpkg_installed/
+.vcpkg-root
