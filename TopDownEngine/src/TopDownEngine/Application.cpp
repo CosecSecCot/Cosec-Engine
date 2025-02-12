@@ -1,5 +1,5 @@
 #include "Application.h"
-#include <iostream>
+#include "Events/ApplicationEvent.h"
 
 namespace TopDown {
 
@@ -7,7 +7,9 @@ Application::Application() = default;
 Application::~Application() = default;
 
 void Application::Run() {
-    std::cout << "-------- TOPDOWN ENGINE --------\n";
+    WindowResizeEvent e(1280, 720);
+    LOG_INFO(e.ToString());
+
     while (true)
         ;
 }
