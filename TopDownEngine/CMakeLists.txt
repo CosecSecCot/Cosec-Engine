@@ -5,9 +5,13 @@ project(TopDownEngine)
 # Define the TopDownEngine library
 add_library(TopDownEngine SHARED)
 target_sources(TopDownEngine PRIVATE
-    src/TopDownEngine/Application.cpp  # Add actual source files here
+    src/TopDownEngine/Application.cpp
+    src/TopDownEngine/Log.cpp
 )
 target_compile_definitions(TopDownEngine PRIVATE TOPDOWN_BUILD_DLL)
+
+# External libraries
+target_include_directories(TopDownEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/include)
 
 # Set output directories for different configurations
 set_target_properties(TopDownEngine PROPERTIES

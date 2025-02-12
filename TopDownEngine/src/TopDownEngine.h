@@ -6,3 +6,5 @@
 #include "TopDownEngine/Core.h"
 
 #include "TopDownEngine/EntryPoint.h"
+
+#include "TopDownEngine/Log.h"

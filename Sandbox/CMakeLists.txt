@@ -9,6 +9,7 @@ target_sources(Sandbox PRIVATE
 )
 target_include_directories(Sandbox PUBLIC
     ${CMAKE_SOURCE_DIR}/TopDownEngine/src
+    ${CMAKE_SOURCE_DIR}/TopDownEngine/vendor/spdlog/include
 )
 
 # Link TopDownEngine to Sandbox

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Application.h"
+#include "Log.h"
 
 // clang-format off
 
@@ -15,6 +16,10 @@ int main(int argc, char **argv) {
 #elif TOPDOWN_UNIX
 
 int main(int argc, char **argv) {
+    TopDown::Log::Init();
+    LOG_CORE_WARN("Initialized Logger!");
+    LOG_INFO("Hello from client!");
+
     auto app = TopDown::CreateApplication();
     app->Run();
     delete app;

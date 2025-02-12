@@ -1,0 +1,3 @@
+[submodule "TopDownEngine/vendor/spdlog"]
+	path = TopDownEngine/vendor/spdlog
+	url = git@github.com:gabime/spdlog.git
