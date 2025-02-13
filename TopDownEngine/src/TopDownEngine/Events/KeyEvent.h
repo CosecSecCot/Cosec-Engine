@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace TopDown {
 
 class TOPDOWN_API KeyEvent : public Event {

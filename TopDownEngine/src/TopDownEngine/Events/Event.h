@@ -1,11 +1,9 @@
 #pragma once
 
-#include "../Core.h"
-#include "../Log.h"
+#include "TopDownEngine/Core.h"
+#include "TopDownEngine/Log.h"
 
-#include <cstdint>
-#include <functional>
-#include <string>
+#include <pch.h>
 
 namespace TopDown {
 
