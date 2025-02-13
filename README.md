@@ -23,6 +23,9 @@ game engine from the ground up, following best practices.
 
 - C++17 or later
 - CMake (minimum version 3.20)
+- [spdlog](https://github.com/gabime/spdlog) (included as a submodule)
+- [GLFW](https://github.com/glfw/glfw) (included as a submodule)
+- OpenGL
 
 ### Build Steps
 
@@ -33,12 +36,20 @@ game engine from the ground up, following best practices.
    cd Top-Down-Game-engine
    ```
 
-2. Create a build directory and run CMake:
+2. Create a build directory and configure CMake:
 
    ```sh
    mkdir build && cd build
-   cmake ..
+   cmake .. -DUSE_WAYLAND=OFF  # Use X11 (default)
    ```
+
+   **OR** to enable **Wayland** instead of **X11**:
+
+   ```sh
+   cmake .. -DUSE_WAYLAND=ON
+   ```
+
+   **`USE_WAYLAND`** flag only matters when you are building on **Linux**.
 
 3. Compile the engine:
 
@@ -56,17 +67,31 @@ game engine from the ground up, following best practices.
 
 4. Run the executable:
 
-   Executable file is stored in `bin/{Release|Debug}-x86_64/Sandbox/Sandbox`
+   Executable file is stored in
+
+   `bin/Release-x86_64/Sandbox/` for Release Mode:
 
    ```sh
    cd <root-directory>
-   ./bin/Release-x86_64/Sandbox/Sandbox # For Release Mode
-   ./bin/Debug-x86_64/Sandbox/Sandbox # For Debug Mode
+   ./bin/Release-x86_64/Sandbox/Sandbox
    ```
+
+   `bin/Debug-x86_64/Sandbox/` for Debug Mode:
+
+   ```sh
+   cd <root-directory>
+   ./bin/Debug-x86_64/Sandbox/Sandbox
+   ```
+
+   **NOTE**: You might need to copy
+   `bin/<build-mode>-x86_64/TopDownEngine/libTopDownEngine.dll` into
+   `bin/<build-mode>-x86_64/Sandbox/` directory to run `Sandbox` executable if
+   you are on Windows.
 
 ## Roadmap
 
-- [ ] Logging
+- [x] Logging
+- [ ] Setup Window with GLFW
 - [ ] Window Events
 - [ ] Input Handling
 
