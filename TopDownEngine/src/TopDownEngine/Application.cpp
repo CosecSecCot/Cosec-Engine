@@ -8,7 +8,7 @@ Application::~Application() = default;
 
 void Application::Run() {
     WindowResizeEvent e(1280, 720);
-    LOG_INFO(e.ToString());
+    LOG_TRACE(e.ToString());
 
     while (true)
         ;
