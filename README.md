@@ -1,8 +1,8 @@
-# TopDown Game Engine *(Rewrite Branch)*
+# Cosec Engine *(Rewrite Branch)*
 
 ## Overview
 
-This branch contains the complete rewrite of **TopDown Game Engine**, inspired by
+This branch contains the complete rewrite of **Cosec Engine**, inspired by
 [The Cherno's Game Engine series](https://youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT&si=kWuiV_w8-P1DgTe-).
 The goal of this rewrite is to build a high-performance, modular, and scalable
 game engine from the ground up, following best practices.
@@ -15,7 +15,7 @@ game engine from the ground up, following best practices.
 ![screenshot-20241120-122706Z-selected](https://github.com/user-attachments/assets/59d7dfb0-8966-49e3-8e78-f8a1c497851d)
 -->
 
-![TopDownGame](https://github.com/user-attachments/assets/66745684-8fab-49b4-8a91-c1b37ba86719)
+![CosecEngine](https://github.com/user-attachments/assets/66745684-8fab-49b4-8a91-c1b37ba86719)
 
 ## Build Instructions
 
@@ -96,5 +96,5 @@ game engine from the ground up, following best practices.
 - [ ] Input Handling
 
 ---
-*This README is for the `rewrite` branch of TopDown Game Engine and will be
+*This README is for the `rewrite` branch of Cosec Engine and will be
 updated as development progresses.*
