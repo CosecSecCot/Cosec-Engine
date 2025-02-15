@@ -1,4 +1,4 @@
-# Top Down Game
+# Cosec Engine
 
 This project started as a sample game to learn SDL2, then it evolved into a 2D Game Engine.
 
