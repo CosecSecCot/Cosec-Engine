@@ -26,6 +26,11 @@ else()
     message(FATAL_ERROR "Unsupported platform")
 endif()
 
+# Enable assertions in Debug mode
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(COSEC_ENABLE_ASSERTS)
+endif()
+
 # Add subdirectories
 add_subdirectory(CosecEngine)
 add_subdirectory(Sandbox)
