@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace TopDown {
+namespace Cosec {
 
-class TOPDOWN_API KeyEvent : public Event {
+class COSEC_API KeyEvent : public Event {
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryKeyboard | EventCategory::EventCategoryInput)
 
     [[nodiscard]] int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ protected:
     int m_KeyCode;
 };
 
-class TOPDOWN_API KeyPressedEvent : public KeyEvent {
+class COSEC_API KeyPressedEvent : public KeyEvent {
 public:
     KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
@@ -35,7 +35,7 @@ protected:
     int m_RepeatCount;
 };
 
-class TOPDOWN_API KeyReleasedEvent : public KeyEvent {
+class COSEC_API KeyReleasedEvent : public KeyEvent {
     KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 
     DECLARE_EVENT_TYPE(KeyReleased);
@@ -47,4 +47,4 @@ class TOPDOWN_API KeyReleasedEvent : public KeyEvent {
     }
 };
 
-} // namespace TopDown
+} // namespace Cosec

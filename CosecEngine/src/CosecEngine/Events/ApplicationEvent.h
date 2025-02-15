@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace TopDown {
+namespace Cosec {
 
 class WindowResizeEvent : public Event {
 public:
@@ -56,4 +56,4 @@ public:
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryApplication)
 };
 
-} // namespace TopDown
+} // namespace Cosec

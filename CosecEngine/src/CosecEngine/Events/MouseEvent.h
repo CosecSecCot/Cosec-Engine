@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace TopDown {
+namespace Cosec {
 
-class TOPDOWN_API MouseMovedEvent : public Event {
+class COSEC_API MouseMovedEvent : public Event {
     MouseMovedEvent(float x, float y) : m_MouseX(x), m_MouseY(y) {}
 
     DECLARE_EVENT_TYPE(MouseMoved);
@@ -23,7 +23,7 @@ private:
     float m_MouseX, m_MouseY;
 };
 
-class TOPDOWN_API MouseScrolledEvent : public Event {
+class COSEC_API MouseScrolledEvent : public Event {
     MouseScrolledEvent(float xOffset, float yOffset) : m_XOffset(xOffset), m_YOffset(yOffset) {}
 
     DECLARE_EVENT_TYPE(MouseScrolled);
@@ -42,7 +42,7 @@ private:
     float m_XOffset, m_YOffset;
 };
 
-class TOPDOWN_API MouseButtonEvent : public Event {
+class COSEC_API MouseButtonEvent : public Event {
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput);
 
     [[nodiscard]] int GetMouseButton() const { return m_Button; }
@@ -52,7 +52,7 @@ protected:
     int m_Button;
 };
 
-class TOPDOWN_API MouseButtonPressedEvent : public MouseButtonEvent {
+class COSEC_API MouseButtonPressedEvent : public MouseButtonEvent {
     MouseButtonPressedEvent(int button) : MouseButtonEvent(button) {}
 
     DECLARE_EVENT_TYPE(MouseButtonPressed);
@@ -64,7 +64,7 @@ class TOPDOWN_API MouseButtonPressedEvent : public MouseButtonEvent {
     }
 };
 
-class TOPDOWN_API MouseButtonReleasedEvent : public MouseButtonEvent {
+class COSEC_API MouseButtonReleasedEvent : public MouseButtonEvent {
     MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
 
     DECLARE_EVENT_TYPE(MouseButtonReleased);
@@ -76,4 +76,4 @@ class TOPDOWN_API MouseButtonReleasedEvent : public MouseButtonEvent {
     }
 };
 
-} // namespace TopDown
+} // namespace Cosec

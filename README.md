@@ -84,14 +84,14 @@ game engine from the ground up, following best practices.
    ```
 
    **NOTE**: You might need to copy
-   `bin/<build-mode>-x86_64/TopDownEngine/libTopDownEngine.dll` into
+   `bin/<build-mode>-x86_64/CosecEngine/libCosecEngine.dll` into
    `bin/<build-mode>-x86_64/Sandbox/` directory to run `Sandbox` executable if
    you are on Windows.
 
 ## Roadmap
 
 - [x] Logging
-- [ ] Setup Window with GLFW
+- [x] Setup Window with GLFW
 - [ ] Window Events
 - [ ] Input Handling
 

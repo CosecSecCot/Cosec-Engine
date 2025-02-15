@@ -1,11 +1,11 @@
 #pragma once
 
-#include "TopDownEngine/Core.h"
-#include "TopDownEngine/Log.h"
+#include "CosecEngine/Core.h"
+#include "CosecEngine/Log.h"
 
 #include <pch.h>
 
-namespace TopDown {
+namespace Cosec {
 
 enum class EventType : std::uint8_t {
     None = 0,
@@ -48,7 +48,7 @@ inline EventCategory &operator|=(EventCategory &lhs, EventCategory rhs) {
     return lhs;
 }
 
-class TOPDOWN_API Event {
+class COSEC_API Event {
     friend class EventDispatcher;
 
 public:
@@ -96,4 +96,4 @@ private:
     Event &m_Event;
 };
 
-} // namespace TopDown
+} // namespace Cosec

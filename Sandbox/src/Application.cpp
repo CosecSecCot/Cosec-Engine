@@ -1,9 +1,9 @@
-#include <TopDownEngine.h>
+#include <CosecEngine.h>
 
-class Sandbox : public TopDown::Application {
+class Sandbox : public Cosec::Application {
 public:
     Sandbox() = default;
     ~Sandbox() override = default;
 };
 
-TopDown::Application *TopDown::CreateApplication() { return new Sandbox(); }
+Cosec::Application *Cosec::CreateApplication() { return new Sandbox(); }

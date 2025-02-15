@@ -8,12 +8,12 @@ target_sources(Sandbox PRIVATE
     src/Application.cpp  # Add actual source files here
 )
 target_include_directories(Sandbox PUBLIC
-    ${CMAKE_SOURCE_DIR}/TopDownEngine/src
-    ${CMAKE_SOURCE_DIR}/TopDownEngine/vendor/spdlog/include
+    ${CMAKE_SOURCE_DIR}/CosecEngine/src
+    ${CMAKE_SOURCE_DIR}/CosecEngine/vendor/spdlog/include
 )
 
-# Link TopDownEngine to Sandbox
-target_link_libraries(Sandbox PRIVATE TopDownEngine)
+# Link CosecEngine to Sandbox
+target_link_libraries(Sandbox PRIVATE CosecEngine)
 
 # Set output directories for Sandbox
 set_target_properties(Sandbox PROPERTIES

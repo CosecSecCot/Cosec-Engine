@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(TopDownGameEngine)
+project(CosecEngineProject)
 
 # Enable compile_commands.json for LSP support
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -12,9 +12,9 @@ endif()
 
 # Detect platform and define appropriate macros
 if(WIN32)
-    add_compile_definitions(TOPDOWN_WIN)
+    add_compile_definitions(COSEC_WIN)
 elseif(UNIX)
-    add_compile_definitions(TOPDOWN_UNIX)
+    add_compile_definitions(COSEC_UNIX)
 else()
     message(FATAL_ERROR "Unsupported platform")
 endif()
@@ -27,5 +27,5 @@ else()
 endif()
 
 # Add subdirectories
-add_subdirectory(TopDownEngine)
+add_subdirectory(CosecEngine)
 add_subdirectory(Sandbox)

@@ -5,22 +5,22 @@
 
 // clang-format off
 
-#ifdef TOPDOWN_WIN
+#ifdef COSEC_WIN
 
 int main(int argc, char **argv) {
-    auto app = TopDown::CreateApplication();
+    auto app = Cosec::CreateApplication();
     app->Run();
     delete app;
 }
 
-#elif TOPDOWN_UNIX
+#elif COSEC_UNIX
 
 int main(int argc, char **argv) {
-    TopDown::Log::Init();
+    Cosec::Log::Init();
     LOG_CORE_WARN("Initialized Logger!");
     LOG_INFO("Hello from client!");
 
-    auto app = TopDown::CreateApplication();
+    auto app = Cosec::CreateApplication();
     app->Run();
     delete app;
 }

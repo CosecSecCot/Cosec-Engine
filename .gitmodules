@@ -1,6 +1,6 @@
-[submodule "TopDownEngine/vendor/spdlog"]
-	path = TopDownEngine/vendor/spdlog
-	url = git@github.com:gabime/spdlog.git
-[submodule "TopDownEngine/vendor/GLFW"]
-	path = TopDownEngine/vendor/GLFW
-	url = git@github.com:glfw/glfw.git
+[submodule "CosecEngine/vendor/spdlog"]
+	path = CosecEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "CosecEngine/vendor/GLFW"]
+	path = CosecEngine/vendor/GLFW
+	url = https://github.com/glfw/glfw.git
