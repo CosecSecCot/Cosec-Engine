@@ -6,13 +6,13 @@ namespace Cosec {
 
 class WindowResizeEvent : public Event {
 public:
-    WindowResizeEvent(unsigned int width, unsigned int height) : m_Width(width), m_Height(height) {}
+    WindowResizeEvent(uint32_t width, uint32_t height) : m_Width(width), m_Height(height) {}
 
     DECLARE_EVENT_TYPE(WindowResize);
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryApplication);
 
-    [[nodiscard]] unsigned int GetWidth() const { return m_Width; }
-    [[nodiscard]] unsigned int GetHeight() const { return m_Height; }
+    [[nodiscard]] uint32_t GetWidth() const { return m_Width; }
+    [[nodiscard]] uint32_t GetHeight() const { return m_Height; }
 
     [[nodiscard]] std::string ToString() const override {
         std::stringstream ss;
@@ -21,7 +21,7 @@ public:
     }
 
 private:
-    unsigned int m_Width, m_Height;
+    uint32_t m_Width, m_Height;
 };
 
 class WindowCloseEvent : public Event {
