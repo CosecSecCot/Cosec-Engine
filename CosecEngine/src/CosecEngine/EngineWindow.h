@@ -18,7 +18,7 @@ struct WindowProps {
 
 class COSEC_API EngineWindow {
 public:
-    using EventCallbackFn = std::function<bool(Event &)>;
+    using EventCallbackFn = std::function<void(Event &)>;
 
     virtual ~EngineWindow() = default;
 

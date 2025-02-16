@@ -5,6 +5,7 @@
 namespace Cosec {
 
 class COSEC_API KeyEvent : public Event {
+public:
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryKeyboard | EventCategory::EventCategoryInput)
 
     [[nodiscard]] int GetKeyCode() const { return m_KeyCode; }
@@ -19,23 +20,24 @@ protected:
 
 class COSEC_API KeyPressedEvent : public KeyEvent {
 public:
-    KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+    KeyPressedEvent(int keycode, bool isRepeat = false) : KeyEvent(keycode), m_IsRepeat(isRepeat) {}
 
     DECLARE_EVENT_TYPE(KeyPressed);
 
-    [[nodiscard]] int GetRepeatCount() const { return m_RepeatCount; }
+    [[nodiscard]] bool IsRepeat() const { return m_IsRepeat; }
 
     [[nodiscard]] std::string ToString() const override {
         std::stringstream ss;
-        ss << "KeyPressedEvent: " << m_KeyCode << "(" << m_RepeatCount << "repeats)";
+        ss << "KeyPressedEvent: " << m_KeyCode << " (repeat=" << m_IsRepeat << ")";
         return ss.str();
     }
 
 protected:
-    int m_RepeatCount;
+    bool m_IsRepeat;
 };
 
 class COSEC_API KeyReleasedEvent : public KeyEvent {
+public:
     KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 
     DECLARE_EVENT_TYPE(KeyReleased);

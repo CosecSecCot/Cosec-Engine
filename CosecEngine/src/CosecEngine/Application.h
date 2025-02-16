@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "CosecEngine/EngineWindow.h"
+#include "CosecEngine/Events/ApplicationEvent.h"
 
 #include <pch.h>
 
@@ -14,7 +15,11 @@ public:
 
     void Run();
 
+    void OnEvent(Event &e);
+
 private:
+    bool OnWindowClose(WindowCloseEvent &e);
+
     std::unique_ptr<EngineWindow> m_Window;
     bool m_Running = true;
 };

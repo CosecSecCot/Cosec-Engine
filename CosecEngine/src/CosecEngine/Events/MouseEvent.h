@@ -5,6 +5,7 @@
 namespace Cosec {
 
 class COSEC_API MouseMovedEvent : public Event {
+public:
     MouseMovedEvent(float x, float y) : m_MouseX(x), m_MouseY(y) {}
 
     DECLARE_EVENT_TYPE(MouseMoved);
@@ -24,6 +25,7 @@ private:
 };
 
 class COSEC_API MouseScrolledEvent : public Event {
+public:
     MouseScrolledEvent(float xOffset, float yOffset) : m_XOffset(xOffset), m_YOffset(yOffset) {}
 
     DECLARE_EVENT_TYPE(MouseScrolled);
@@ -43,6 +45,7 @@ private:
 };
 
 class COSEC_API MouseButtonEvent : public Event {
+public:
     DECLARE_EVENT_CATEGORY(EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput);
 
     [[nodiscard]] int GetMouseButton() const { return m_Button; }
@@ -53,6 +56,7 @@ protected:
 };
 
 class COSEC_API MouseButtonPressedEvent : public MouseButtonEvent {
+public:
     MouseButtonPressedEvent(int button) : MouseButtonEvent(button) {}
 
     DECLARE_EVENT_TYPE(MouseButtonPressed);
@@ -65,6 +69,7 @@ class COSEC_API MouseButtonPressedEvent : public MouseButtonEvent {
 };
 
 class COSEC_API MouseButtonReleasedEvent : public MouseButtonEvent {
+public:
     MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
 
     DECLARE_EVENT_TYPE(MouseButtonReleased);

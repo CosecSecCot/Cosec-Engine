@@ -79,7 +79,7 @@ public:
 
     template <typename T> bool Dispatch(EventFn<T> func) {
         if (!std::is_base_of_v<Event, T>) {
-            LOG_ERROR("Called Dispatch for a non-Event type!");
+            LOG_CORE_CRIT("Called Dispatch for a non-Event type!");
         }
 
         if (m_Event.GetEventType() == T::GetStaticType()) {
