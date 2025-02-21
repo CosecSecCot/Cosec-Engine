@@ -19,6 +19,8 @@ target_sources(CosecEngine PRIVATE
     src/pch.cpp
     src/CosecEngine/Application.cpp
     src/CosecEngine/Log.cpp
+    src/CosecEngine/Layer.cpp
+    src/CosecEngine/LayerStack.cpp
     src/Platform/Unix/UnixWindow.cpp
 )
 target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)

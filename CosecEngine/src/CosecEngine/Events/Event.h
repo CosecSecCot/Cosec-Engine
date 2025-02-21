@@ -59,8 +59,7 @@ public:
 
     [[nodiscard]] bool IsInCategory(EventCategory category) const { return GetCategoryFlags() & (int)category; }
 
-protected:
-    bool m_Handled = false;
+    bool Handled = false;
 };
 
 #define DECLARE_EVENT_TYPE(type)                                                                                       \
@@ -77,7 +76,7 @@ class EventDispatcher {
 public:
     EventDispatcher(Event &event) : m_Event(event) {}
 
-    template <typename T> bool Dispatch(EventFn<T> func) {
+    template <typename T> bool Dispatch(const EventFn<T> &func) {
         if (!std::is_base_of_v<Event, T>) {
             LOG_CORE_CRIT("Called Dispatch for a non-Event type!");
         }
@@ -85,7 +84,7 @@ public:
         if (m_Event.GetEventType() == T::GetStaticType()) {
             // converting m_Event to the specific event type and
             // passing that to func, func will be handling that event.
-            m_Event.m_Handled = func(static_cast<T &>(m_Event));
+            m_Event.Handled |= func(static_cast<T &>(m_Event));
             return true;
         }
 

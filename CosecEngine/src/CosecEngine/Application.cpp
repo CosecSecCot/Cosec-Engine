@@ -15,10 +15,25 @@ void Application::OnEvent(Event &e) {
         [this](auto &&e) -> bool { return OnWindowClose(std::forward<decltype(e)>(e)); });
 
     LOG_CORE_TRACE("{0}", e.ToString());
+
+    for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+        (*--it)->OnEvent(e);
+        if (e.Handled) {
+            break;
+        }
+    }
 }
+
+void Application::PushLayer(Layer *layer) { m_LayerStack.PushLayer(layer); }
+
+void Application::PushOverlay(Layer *overlay) { m_LayerStack.PushOverlay(overlay); }
 
 void Application::Run() {
     while (m_Running) {
+        for (auto layer : m_LayerStack) {
+            layer->OnUpdate();
+        }
+
         m_Window->OnUpdate();
     }
 }
