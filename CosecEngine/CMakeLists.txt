@@ -32,12 +32,14 @@ target_include_directories(CosecEngine PRIVATE
     src
     vendor/spdlog/include
     vendor/GLFW/include
+    vendor/Glad/include
 )
 
 # Link GLFW and OpenGL
 add_subdirectory(vendor/GLFW)
+add_subdirectory(vendor/Glad)
 find_package(OpenGL REQUIRED)
-target_link_libraries(CosecEngine PRIVATE glfw OpenGL::GL)
+target_link_libraries(CosecEngine PRIVATE glad glfw OpenGL::GL)
 
 # Set output directories for different configurations
 set_target_properties(CosecEngine PROPERTIES

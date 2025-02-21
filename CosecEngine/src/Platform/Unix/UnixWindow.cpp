@@ -1,3 +1,4 @@
+#define GLFW_INCLUDE_NONE
 #include "UnixWindow.h"
 #include "CosecEngine/Core.h"
 #include "CosecEngine/Events/ApplicationEvent.h"
@@ -6,6 +7,7 @@
 #include "CosecEngine/Log.h"
 
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Cosec {
 
@@ -29,8 +31,8 @@ void UnixWindow::Init(const WindowProps &props) {
     LOG_CORE_INFO("Creating Window \"{0}\"({1}x{2})", props.Title, props.Width, props.Height);
 
     if (!s_GLFWInitialized) {
-        int success = glfwInit();
-        COSEC_CORE_ASSERT(success, "GLFW not initialized!");
+        int glfwStatus = glfwInit();
+        COSEC_CORE_ASSERT(glfwStatus, "GLFW not initialized!");
 
         glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -41,6 +43,8 @@ void UnixWindow::Init(const WindowProps &props) {
                                 nullptr, nullptr);
 
     glfwMakeContextCurrent(m_Window);
+    int gladStatus = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    COSEC_CORE_ASSERT(gladStatus, "Glad not initialized!")
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 
