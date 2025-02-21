@@ -6,12 +6,15 @@ public:
 
     void OnUpdate() override { LOG_INFO("Example Layer Update!"); }
 
-    void OnEvent(const Cosec::Event &event) override { LOG_TRACE("{0}", event.ToString()); }
+    void OnEvent(Cosec::Event &event) override { LOG_TRACE("{0}", event.ToString()); }
 };
 
 class Sandbox : public Cosec::Application {
 public:
-    Sandbox() { PushLayer(new ExampleLayer()); }
+    Sandbox() {
+        PushLayer(new ExampleLayer());
+        PushLayer(new Cosec::ImGuiLayer());
+    }
     ~Sandbox() override = default;
 };
 

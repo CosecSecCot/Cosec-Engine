@@ -28,4 +28,6 @@
 
 #define BIT(x) (1 << x)
 
+#define DISPATCH_EVENT_FN(handler) [this](auto&& e) -> bool { return handler(std::forward<decltype(e)>(e)); }
+
 // clang-format on

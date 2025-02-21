@@ -1,9 +1,16 @@
 #include "Application.h"
 #include "CosecEngine/EngineWindow.h"
 
+#include <glad/glad.h>
+
 namespace Cosec {
 
+Application *Application::s_Instance = nullptr;
+
 Application::Application() {
+    COSEC_ASSERT(!s_Instance, "Application already exists!");
+    s_Instance = this;
+
     m_Window = std::unique_ptr<EngineWindow>(EngineWindow::Create());
     m_Window->SetEventCallback([this](auto &&e) { Application::OnEvent(std::forward<decltype(e)>(e)); });
 }
@@ -11,8 +18,7 @@ Application::~Application() = default;
 
 void Application::OnEvent(Event &e) {
     EventDispatcher dispatcher(e);
-    dispatcher.Dispatch<WindowCloseEvent>(
-        [this](auto &&e) -> bool { return OnWindowClose(std::forward<decltype(e)>(e)); });
+    dispatcher.Dispatch<WindowCloseEvent>(DISPATCH_EVENT_FN(Application::OnWindowClose));
 
     LOG_CORE_TRACE("{0}", e.ToString());
 
@@ -30,6 +36,9 @@ void Application::PushOverlay(Layer *overlay) { m_LayerStack.PushOverlay(overlay
 
 void Application::Run() {
     while (m_Running) {
+        glad_glClearColor(0.07, 0.07, 0.08, 1);
+        glad_glClear(GL_COLOR_BUFFER_BIT);
+
         for (auto layer : m_LayerStack) {
             layer->OnUpdate();
         }

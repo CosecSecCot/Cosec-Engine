@@ -21,6 +21,7 @@ target_sources(CosecEngine PRIVATE
     src/CosecEngine/Log.cpp
     src/CosecEngine/Layer.cpp
     src/CosecEngine/LayerStack.cpp
+    src/CosecEngine/ImGui/ImGuiLayer.cpp
     src/Platform/Unix/UnixWindow.cpp
 )
 target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)
@@ -33,7 +34,29 @@ target_include_directories(CosecEngine PRIVATE
     vendor/spdlog/include
     vendor/GLFW/include
     vendor/Glad/include
+    vendor/ImGui
+    vendor/ImGui/backends
 )
+
+# Compile ImGui with CosecEngine
+target_sources(CosecEngine PRIVATE
+    vendor/ImGui/imconfig.h
+    vendor/ImGui/imgui.cpp
+    vendor/ImGui/imgui.h
+    vendor/ImGui/imgui_demo.cpp
+    vendor/ImGui/imgui_draw.cpp
+    vendor/ImGui/imgui_internal.h
+    vendor/ImGui/imgui_tables.cpp
+    vendor/ImGui/imgui_widgets.cpp
+    vendor/ImGui/imstb_rectpack.h
+    vendor/ImGui/imstb_textedit.h
+    vendor/ImGui/imstb_truetype.h
+    vendor/ImGui/backends/imgui_impl_opengl3.cpp
+    vendor/ImGui/backends/imgui_impl_opengl3.h
+    vendor/ImGui/backends/imgui_impl_glfw.cpp
+    vendor/ImGui/backends/imgui_impl_glfw.h
+)
+
 
 # Link GLFW and OpenGL
 add_subdirectory(vendor/GLFW)
