@@ -10,6 +10,7 @@ target_sources(Sandbox PRIVATE
 target_include_directories(Sandbox PUBLIC
     ${CMAKE_SOURCE_DIR}/CosecEngine/src
     ${CMAKE_SOURCE_DIR}/CosecEngine/vendor/spdlog/include
+    ${CMAKE_SOURCE_DIR}/CosecEngine/vendor/GLM
 )
 
 # Link CosecEngine to Sandbox

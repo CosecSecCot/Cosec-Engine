@@ -7,3 +7,6 @@
 [submodule "CosecEngine/vendor/ImGui"]
 	path = CosecEngine/vendor/ImGui
 	url = git@github.com:ocornut/imgui.git
+[submodule "CosecEngine/vendor/GLM"]
+	path = CosecEngine/vendor/GLM
+	url = https://github.com/g-truc/glm.git

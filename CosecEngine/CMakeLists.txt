@@ -37,6 +37,7 @@ target_include_directories(CosecEngine PRIVATE
     vendor/Glad/include
     vendor/ImGui
     vendor/ImGui/backends
+    vendor/GLM
 )
 
 # Compile ImGui with CosecEngine
@@ -62,8 +63,9 @@ target_sources(CosecEngine PRIVATE
 # Link GLFW and OpenGL
 add_subdirectory(vendor/GLFW)
 add_subdirectory(vendor/Glad)
+add_subdirectory(vendor/GLM)
 find_package(OpenGL REQUIRED)
-target_link_libraries(CosecEngine PRIVATE glad glfw OpenGL::GL)
+target_link_libraries(CosecEngine PRIVATE glm glad glfw OpenGL::GL)
 
 # Set output directories for different configurations
 set_target_properties(CosecEngine PROPERTIES
