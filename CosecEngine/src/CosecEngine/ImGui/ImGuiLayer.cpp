@@ -2,8 +2,6 @@
 #include "ImGuiLayer.h"
 
 #include "CosecEngine/Application.h"
-#include "CosecEngine/Events/KeyEvent.h"
-#include "CosecEngine/Events/MouseEvent.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
