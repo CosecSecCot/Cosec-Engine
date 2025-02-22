@@ -29,6 +29,8 @@ public:
     virtual void SetVSync(bool enabled) = 0;
     [[nodiscard]] virtual bool IsVSync() const = 0;
 
+    [[nodiscard]] virtual void *GetNativeWindow() const = 0;
+
     static EngineWindow *Create(const WindowProps &props = WindowProps());
 };
 
