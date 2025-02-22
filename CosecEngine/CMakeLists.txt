@@ -76,5 +76,14 @@ install(TARGETS CosecEngine EXPORT CosecEngineConfig DESTINATION lib)
 install(EXPORT CosecEngineConfig DESTINATION lib/cmake/CosecEngine)
 install(DIRECTORY src/ DESTINATION include)
 
+if (WIN32)
+    add_custom_command(TARGET CosecEngine POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            "$<TARGET_FILE:CosecEngine>"
+#            "${CMAKE_SOURCE_DIR}/bin/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
+            "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
+    )
+endif()
+
 # Set C++ standard
 set_property(TARGET CosecEngine PROPERTY CXX_STANDARD 17)

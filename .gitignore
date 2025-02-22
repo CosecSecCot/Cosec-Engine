@@ -70,3 +70,5 @@ Thumbs.db
 # Ignore any dependency files if using package managers (like vcpkg)
 vcpkg_installed/
 .vcpkg-root
+/cmake-build-debug/
+/cmake-build-release/

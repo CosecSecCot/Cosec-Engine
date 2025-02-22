@@ -4,7 +4,7 @@
 
 namespace Cosec {
 
-class ImGuiLayer : public Layer {
+class COSEC_API ImGuiLayer : public Layer {
 public:
     ImGuiLayer();
     ~ImGuiLayer() override;
