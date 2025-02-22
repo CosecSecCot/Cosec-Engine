@@ -10,3 +10,7 @@
 #include "CosecEngine/Log.h"
 
 #include "CosecEngine/ImGui/ImGuiLayer.h"
+
+#include "CosecEngine/EngineInput.h"
+#include "CosecEngine/KeyCodes.h"
+#include "CosecEngine/MouseButtonCodes.h"

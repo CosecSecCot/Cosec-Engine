@@ -1,12 +1,24 @@
+#include "CosecEngine/EngineInput.h"
+#include "CosecEngine/MouseButtonCodes.h"
 #include <CosecEngine.h>
 
 class ExampleLayer : public Cosec::Layer {
 public:
-    ExampleLayer() : Cosec::Layer("Example"){};
+    ExampleLayer() : Cosec::Layer("Example") {};
 
-    void OnUpdate() override { LOG_INFO("Example Layer Update!"); }
+    void OnUpdate() override {
+        if (Cosec::EngineInput::IsKeyPressed(COSEC_KEY_J)) {
+            LOG_TRACE("J key pressed!");
+        }
+        if (Cosec::EngineInput::IsMouseButtonPressed(COSEC_MOUSE_BUTTON_LEFT)) {
+            LOG_TRACE("LEFT MOUSE pressed!");
+        }
+        if (Cosec::EngineInput::IsMouseButtonPressed(COSEC_MOUSE_BUTTON_RIGHT)) {
+            LOG_TRACE("RIGHT MOUSE pressed!");
+        }
+    }
 
-    void OnEvent(Cosec::Event &event) override { LOG_TRACE("{0}", event.ToString()); }
+    void OnEvent(Cosec::Event &event) override {}
 };
 
 class Sandbox : public Cosec::Application {

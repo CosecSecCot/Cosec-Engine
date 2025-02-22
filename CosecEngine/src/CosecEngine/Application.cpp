@@ -20,8 +20,6 @@ void Application::OnEvent(Event &e) {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(DISPATCH_EVENT_FN(Application::OnWindowClose));
 
-    LOG_CORE_TRACE("{0}", e.ToString());
-
     for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
         (*--it)->OnEvent(e);
         if (e.Handled) {
@@ -48,6 +46,7 @@ void Application::Run() {
 }
 
 bool Application::OnWindowClose(WindowCloseEvent &) {
+    LOG_CORE_TRACE("Window Closed!");
     m_Running = false;
     return true;
 }
