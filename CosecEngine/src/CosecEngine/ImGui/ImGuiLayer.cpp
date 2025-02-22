@@ -23,7 +23,8 @@ void ImGuiLayer::OnAttach() {
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // IF using Docking Branch
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enable Multi-Viewport
 
     Application &app = Application::Get();
 
@@ -49,6 +50,13 @@ void ImGuiLayer::Begin() {
 void ImGuiLayer::End() {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+        GLFWwindow *glfwBackupCurrentContext = glfwGetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(glfwBackupCurrentContext);
+    }
 }
 
 void ImGuiLayer::OnImGuiRender() {
