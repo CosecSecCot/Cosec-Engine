@@ -19,9 +19,9 @@ static void GLFWErrorCallback(int error, const char *description) {
 
 EngineWindow *EngineWindow::Create(const WindowProps &props) { return new UnixWindow(props); }
 
-UnixWindow::UnixWindow(const WindowProps &props) { Init(props); }
+UnixWindow::UnixWindow(const WindowProps &props) { UnixWindow::Init(props); }
 
-UnixWindow::~UnixWindow() { Shutdown(); }
+UnixWindow::~UnixWindow() { UnixWindow::Shutdown(); }
 
 void UnixWindow::Init(const WindowProps &props) {
     m_Data.Title = props.Title;
@@ -50,7 +50,7 @@ void UnixWindow::Init(const WindowProps &props) {
                                 nullptr, nullptr);
 
     glfwMakeContextCurrent(m_Window);
-    int gladStatus = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    const int gladStatus = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
     COSEC_CORE_ASSERT(gladStatus, "Glad not initialized!")
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);

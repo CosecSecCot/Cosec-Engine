@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     LOG_CORE_WARN("Initialized Logger!");
     LOG_INFO("Hello from client!");
 
-    auto app = Cosec::CreateApplication();
+    const auto app = Cosec::CreateApplication();
     app->Run();
     delete app;
 }
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     LOG_CORE_WARN("Initialized Logger!");
     LOG_INFO("Hello from client!");
 
-    auto app = Cosec::CreateApplication();
+    const auto app = Cosec::CreateApplication();
     app->Run();
     delete app;
 }

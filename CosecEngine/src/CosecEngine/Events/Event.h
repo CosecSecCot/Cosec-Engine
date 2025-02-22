@@ -43,23 +43,26 @@ inline EventCategory operator|(EventCategory lhs, EventCategory rhs) {
     return static_cast<EventCategory>(static_cast<int>(lhs) | static_cast<int>(rhs));
 }
 
-inline EventCategory &operator|=(EventCategory &lhs, EventCategory rhs) {
+inline EventCategory &operator|=(EventCategory &lhs, const EventCategory rhs) {
     lhs = lhs | rhs;
     return lhs;
 }
 
 class COSEC_API Event {
-    friend class EventDispatcher;
-
 public:
+    virtual ~Event() = default;
+
     [[nodiscard]] virtual EventType GetEventType() const = 0;
     [[nodiscard]] virtual const char *GetName() const = 0;
     [[nodiscard]] virtual int GetCategoryFlags() const = 0;
     [[nodiscard]] virtual std::string ToString() const { return GetName(); }
 
-    [[nodiscard]] bool IsInCategory(EventCategory category) const { return GetCategoryFlags() & (int)category; }
+    [[nodiscard]] bool IsInCategory(EventCategory category) const { return GetCategoryFlags() & static_cast<int>(category); }
 
     bool Handled = false;
+
+private:
+    friend class EventDispatcher;
 };
 
 #define DECLARE_EVENT_TYPE(type)                                                                                       \

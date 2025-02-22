@@ -12,6 +12,6 @@
 #include <unordered_set>
 #include <vector>
 
-#ifdef TOPDOWN_WIN
+#ifdef COSEC_WIN
 #include <Windows.h>
 #endif

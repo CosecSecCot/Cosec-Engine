@@ -39,7 +39,7 @@ void Application::Run() {
         glad_glClearColor(0.07, 0.07, 0.08, 1);
         glad_glClear(GL_COLOR_BUFFER_BIT);
 
-        for (auto layer : m_LayerStack) {
+        for (const auto layer : m_LayerStack) {
             layer->OnUpdate();
         }
 
@@ -47,7 +47,7 @@ void Application::Run() {
     }
 }
 
-bool Application::OnWindowClose(WindowCloseEvent &e) {
+bool Application::OnWindowClose(WindowCloseEvent &) {
     m_Running = false;
     return true;
 }
