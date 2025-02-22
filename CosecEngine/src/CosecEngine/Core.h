@@ -5,12 +5,15 @@
 #ifdef COSEC_WIN
     #ifdef COSEC_BUILD_DLL
         #define COSEC_API __declspec(dllexport)
+        #define IMGUI_API __declspec(dllexport)
     #else
         #define COSEC_API __declspec(dllimport)
+        #define IMGUI_API __declspec(dllimport)
     #endif
 #elif COSEC_UNIX
     #ifdef COSEC_BUILD_DLL
         #define COSEC_API __attribute__((visibility("default")))
+        #define IMGUI_API __attribute__((visibility("default")))
     #else
         #define COSEC_API
     #endif

@@ -26,6 +26,7 @@ target_sources(CosecEngine PRIVATE
     src/Platform/Unix/UnixInput.cpp
 )
 target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)
+target_compile_definitions(CosecEngine PRIVATE IMGUI_USER_CONFIG="${CMAKE_CURRENT_SOURCE_DIR}/src/CosecEngine/Core.h")
 
 target_precompile_headers(CosecEngine PRIVATE src/pch.h)
 
@@ -59,7 +60,6 @@ target_sources(CosecEngine PRIVATE
     vendor/ImGui/backends/imgui_impl_glfw.h
 )
 
-
 # Link GLFW and OpenGL
 add_subdirectory(vendor/GLFW)
 add_subdirectory(vendor/Glad)
@@ -83,7 +83,6 @@ if (WIN32)
     add_custom_command(TARGET CosecEngine POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
             "$<TARGET_FILE:CosecEngine>"
-#            "${CMAKE_SOURCE_DIR}/bin/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
             "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
     )
 endif()
