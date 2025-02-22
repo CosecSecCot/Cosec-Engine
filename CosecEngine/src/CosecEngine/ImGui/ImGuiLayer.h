@@ -11,10 +11,10 @@ public:
 
     void OnAttach() override;
     void OnDetach() override;
-    void OnUpdate() override;
+    void OnImGuiRender() override;
 
-private:
-    float m_Time = 0.0f;
+    void Begin();
+    void End();
 };
 
 } // namespace Cosec

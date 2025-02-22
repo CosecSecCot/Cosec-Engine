@@ -1,5 +1,4 @@
-#include "CosecEngine/EngineInput.h"
-#include "CosecEngine/MouseButtonCodes.h"
+#include "imgui.h"
 #include <CosecEngine.h>
 
 class ExampleLayer : public Cosec::Layer {
@@ -18,15 +17,18 @@ public:
         }
     }
 
+    void OnImGuiRender() override {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello World!");
+        ImGui::End();
+    }
+
     void OnEvent(Cosec::Event &event) override {}
 };
 
 class Sandbox : public Cosec::Application {
 public:
-    Sandbox() {
-        PushLayer(new ExampleLayer());
-        PushLayer(new Cosec::ImGuiLayer());
-    }
+    Sandbox() { PushLayer(new ExampleLayer()); }
     ~Sandbox() override = default;
 };
 

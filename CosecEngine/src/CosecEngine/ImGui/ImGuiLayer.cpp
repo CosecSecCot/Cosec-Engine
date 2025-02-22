@@ -23,7 +23,7 @@ void ImGuiLayer::OnAttach() {
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
-    // io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // IF using Docking Branch
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // IF using Docking Branch
 
     Application &app = Application::Get();
 
@@ -40,22 +40,20 @@ void ImGuiLayer::OnDetach() {
     ImGui::DestroyContext();
 }
 
-void ImGuiLayer::OnUpdate() {
-    // (Your code calls glfwPollEvents())
-    // ...
-    // Start the Dear ImGui frame
+void ImGuiLayer::Begin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+}
 
-    bool show = true;
-    ImGui::ShowDemoWindow(&show); // Show demo window! :)
-
-    // Rendering
-    // (Your code clears your framebuffer, renders your other stuff etc.)
+void ImGuiLayer::End() {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    // (Your code calls glfwSwapBuffers() etc.)
+}
+
+void ImGuiLayer::OnImGuiRender() {
+    static bool show = true;
+    ImGui::ShowDemoWindow(&show);
 }
 
 } // namespace Cosec
