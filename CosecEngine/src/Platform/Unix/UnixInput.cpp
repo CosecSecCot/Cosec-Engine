@@ -1,5 +1,6 @@
 #include "UnixInput.h"
 #include "CosecEngine/Application.h"
+#include "CosecEngine/Core.h"
 #include "CosecEngine/EngineInput.h"
 
 #include <GLFW/glfw3.h>
@@ -11,15 +12,17 @@ EngineInput *EngineInput::s_Instance = new UnixInput();
 
 bool UnixInput::IsKeyPressedImpl(int keycode) {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetKey(window, keycode);
+    COSEC_ASSERT(window != nullptr, "Window is NULL!");
 
-    return state == GLFW_PRESS || GLFW_REPEAT;
+    auto state = glfwGetKey(window, keycode);
+    return state == GLFW_PRESS || state == GLFW_REPEAT;
 }
 
 bool UnixInput::IsMouseButtonPressedImpl(int button) {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetMouseButton(window, button);
+    COSEC_ASSERT(window != nullptr, "Window is NULL!");
 
+    auto state = glfwGetMouseButton(window, button);
     return state == GLFW_PRESS;
 }
 
@@ -35,6 +38,8 @@ float UnixInput::GetMouseYImpl() {
 
 std::pair<float, float> UnixInput::GetMousePosImpl() {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
+    COSEC_ASSERT(window != nullptr, "Window is NULL!");
+
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
     return {static_cast<float>(xpos), static_cast<float>(ypos)};
