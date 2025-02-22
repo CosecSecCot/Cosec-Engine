@@ -12,7 +12,7 @@ EngineInput *EngineInput::s_Instance = new UnixInput();
 
 bool UnixInput::IsKeyPressedImpl(int keycode) {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    COSEC_ASSERT(window != nullptr, "Window is NULL!");
+    COSEC_CORE_ASSERT(window != nullptr, "Window is NULL!");
 
     auto state = glfwGetKey(window, keycode);
     return state == GLFW_PRESS || state == GLFW_REPEAT;
@@ -20,7 +20,7 @@ bool UnixInput::IsKeyPressedImpl(int keycode) {
 
 bool UnixInput::IsMouseButtonPressedImpl(int button) {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    COSEC_ASSERT(window != nullptr, "Window is NULL!");
+    COSEC_CORE_ASSERT(window != nullptr, "Window is NULL!");
 
     auto state = glfwGetMouseButton(window, button);
     return state == GLFW_PRESS;
@@ -38,7 +38,7 @@ float UnixInput::GetMouseYImpl() {
 
 std::pair<float, float> UnixInput::GetMousePosImpl() {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    COSEC_ASSERT(window != nullptr, "Window is NULL!");
+    COSEC_CORE_ASSERT(window != nullptr, "Window is NULL!");
 
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
