@@ -23,6 +23,7 @@ target_sources(CosecEngine PRIVATE
     src/CosecEngine/LayerStack.cpp
     src/CosecEngine/ImGui/ImGuiLayer.cpp
     src/Platform/Unix/UnixWindow.cpp
+    src/Platform/Unix/UnixInput.cpp
 )
 target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)
 
