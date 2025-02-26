@@ -2,23 +2,35 @@
 
 // clang-format off
 
-#ifdef COSEC_WIN
-    #ifdef COSEC_BUILD_DLL
-        #define COSEC_API __declspec(dllexport)
-        #define IMGUI_API __declspec(dllexport)
+#if COSEC_SHARED
+    #if COSEC_WIN
+        #ifdef COSEC_BUILD_DLL
+            #define COSEC_API __declspec(dllexport)
+            #define IMGUI_API __declspec(dllexport)
+        #else
+            #define COSEC_API __declspec(dllimport)
+            #define IMGUI_API __declspec(dllimport)
+        #endif
+    #elif COSEC_UNIX
+        #ifdef COSEC_BUILD_DLL
+            #define COSEC_API __attribute__((visibility("default")))
+            #define IMGUI_API __attribute__((visibility("default")))
+        #else
+            #define COSEC_API
+        #endif
     #else
-        #define COSEC_API __declspec(dllimport)
-        #define IMGUI_API __declspec(dllimport)
-    #endif
-#elif COSEC_UNIX
-    #ifdef COSEC_BUILD_DLL
-        #define COSEC_API __attribute__((visibility("default")))
-        #define IMGUI_API __attribute__((visibility("default")))
-    #else
-        #define COSEC_API
+        #error "Platform not supported!"
     #endif
 #else
-    #error "Platform not supported!"
+    #if COSEC_WIN 
+        #define COSEC_API
+        #define IMGUI_API
+    #elif COSEC_UNIX
+        #define COSEC_API
+        #define IMGUI_API
+    #else
+        #error "Platform not supported!"
+    #endif
 #endif
 
 #ifdef COSEC_ENABLE_ASSERTS

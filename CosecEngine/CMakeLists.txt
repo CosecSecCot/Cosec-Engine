@@ -4,6 +4,7 @@ project(CosecEngine)
 
 # User option to select Wayland or X11
 option(USE_WAYLAND "Build with Wayland support instead of X11" OFF)
+option(COSEC_SHARED "Build CosecEngine as a shared library" OFF)
 
 if (USE_WAYLAND)
     set(GLFW_BUILD_WAYLAND ON CACHE BOOL "" FORCE)
@@ -14,7 +15,12 @@ else()
 endif()
 
 # Define the CosecEngine library
-add_library(CosecEngine SHARED)
+# add_library(CosecEngine SHARED)
+if (COSEC_SHARED)
+    add_library(CosecEngine SHARED)
+else()
+    add_library(CosecEngine STATIC)
+endif()
 target_sources(CosecEngine PRIVATE
     src/pch.cpp
     src/CosecEngine/Application.cpp
@@ -25,10 +31,13 @@ target_sources(CosecEngine PRIVATE
     src/Platform/Unix/UnixWindow.cpp
     src/Platform/Unix/UnixInput.cpp
 )
-target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)
-target_compile_definitions(CosecEngine PRIVATE IMGUI_USER_CONFIG="${CMAKE_CURRENT_SOURCE_DIR}/src/CosecEngine/Core.h")
 
 target_precompile_headers(CosecEngine PRIVATE src/pch.h)
+
+if (COSEC_SHARED)
+    target_compile_definitions(CosecEngine PRIVATE COSEC_BUILD_DLL)
+    target_compile_definitions(CosecEngine PRIVATE IMGUI_USER_CONFIG="${CMAKE_CURRENT_SOURCE_DIR}/src/CosecEngine/Core.h")
+endif()
 
 # External libraries
 target_include_directories(CosecEngine PRIVATE
@@ -67,24 +76,26 @@ add_subdirectory(vendor/GLM)
 find_package(OpenGL REQUIRED)
 target_link_libraries(CosecEngine PRIVATE glm glad glfw OpenGL::GL)
 
-# Set output directories for different configurations
-set_target_properties(CosecEngine PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
-)
-
-# Export the library
-install(TARGETS CosecEngine EXPORT CosecEngineConfig DESTINATION lib)
-install(EXPORT CosecEngineConfig DESTINATION lib/cmake/CosecEngine)
-install(DIRECTORY src/ DESTINATION include)
-
-if (WIN32)
-    add_custom_command(TARGET CosecEngine POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            "$<TARGET_FILE:CosecEngine>"
-            "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
+if (COSEC_SHARED)
+    # Set output directories for different configurations
+    set_target_properties(CosecEngine PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/CosecEngine
     )
+
+    # Export the library
+    install(TARGETS CosecEngine EXPORT CosecEngineConfig DESTINATION lib)
+    install(EXPORT CosecEngineConfig DESTINATION lib/cmake/CosecEngine)
+    install(DIRECTORY src/ DESTINATION include)
+
+    if (WIN32)
+        add_custom_command(TARGET CosecEngine POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                "$<TARGET_FILE:CosecEngine>"
+                "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}-${PLATFORM}/Sandbox/$<TARGET_FILE_NAME:CosecEngine>"
+        )
+    endif()
 endif()
 
 # Set C++ standard
