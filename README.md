@@ -25,31 +25,44 @@ game engine from the ground up, following best practices.
 - CMake (minimum version 3.20)
 - [spdlog](https://github.com/gabime/spdlog) (included as a submodule)
 - [GLFW](https://github.com/glfw/glfw) (included as a submodule)
-- OpenGL
+- [Glad](http://glad.dav1d.de/) (included in the repository)
+- [ImGui](https://github.com/ocornut/imgui/tree/docking) (included as a submodule)
+- [GLM](https://github.com/g-truc/glm/) (included as a submodule)
 
 ### Build Steps
 
 1. Clone the repository and switch to the rewrite branch:
 
    ```sh
-   git clone -b rewrite https://github.com/CosecSecCot/Top-Down-Game-engine.git
-   cd Top-Down-Game-engine
+   git clone -b rewrite https://github.com/CosecSecCot/Cosec-Engine.git
+   cd Cosec-Engine
    ```
 
 2. Create a build directory and configure CMake:
 
    ```sh
    mkdir build && cd build
-   cmake .. -DUSE_WAYLAND=OFF  # Use X11 (default)
+   cmake ..
    ```
 
-   **OR** to enable **Wayland** instead of **X11**:
+   By Default `CosecEngine` builds as a **Static** library.
+
+   If you want to build `CosecEngine` as a **Shared** library use:
+
+   ```sh
+   mkdir build && cd build
+   cmake .. -DCOSEC_SHARED=ON  # Build as a Shared library instead
+   ```
+
+   #### Building on Linux
+
+   By default, **X11** is selected.
+
+   If you want to enable **Wayland** instead use:
 
    ```sh
    cmake .. -DUSE_WAYLAND=ON
    ```
-
-   **`USE_WAYLAND`** flag only matters when you are building on **Linux**.
 
 3. Compile the engine:
 
@@ -83,17 +96,15 @@ game engine from the ground up, following best practices.
    ./bin/Debug-x86_64/Sandbox/Sandbox
    ```
 
-   **NOTE**: You might need to copy
-   `bin/<build-mode>-x86_64/CosecEngine/libCosecEngine.dll` into
-   `bin/<build-mode>-x86_64/Sandbox/` directory to run `Sandbox` executable if
-   you are on Windows.
-
 ## Roadmap
 
 - [x] Logging
 - [x] Setup Window with GLFW
-- [ ] Window Events
-- [ ] Input Handling
+- [x] Window Events
+- [x] Input Handling
+- [x] ImGui Setup
+- [ ] `Renderer` draws a triangle
+- [ ] Abstraction of `Renderer` API
 
 ---
 *This README is for the `rewrite` branch of Cosec Engine and will be
