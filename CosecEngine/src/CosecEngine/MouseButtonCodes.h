@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- * Taken from COSEC/glfw3.h
+ * Taken from GLFW/glfw3.h
  */
 
 #define COSEC_MOUSE_BUTTON_1      0

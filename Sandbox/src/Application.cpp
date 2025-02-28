@@ -3,7 +3,7 @@
 
 class ExampleLayer : public Cosec::Layer {
 public:
-    ExampleLayer() : Cosec::Layer("Example") {};
+    ExampleLayer() : Cosec::Layer("Example"){};
 
     void OnUpdate() override {
         // if (Cosec::EngineInput::IsKeyPressed(COSEC_KEY_J)) {
