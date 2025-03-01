@@ -34,6 +34,7 @@ Makefile
 compile_commands.json
 
 # Ignore Visual Studio files (if applicable)
+/.vs
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user

@@ -15,7 +15,7 @@ target_include_directories(Sandbox PUBLIC
 )
 
 # Link CosecEngine to Sandbox
-target_link_libraries(Sandbox PRIVATE CosecEngine)
+target_link_libraries(Sandbox PRIVATE CosecEngine spdlog::spdlog)
 
 # Set output directories for Sandbox
 set_target_properties(Sandbox PROPERTIES
