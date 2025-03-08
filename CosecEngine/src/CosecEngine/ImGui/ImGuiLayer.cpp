@@ -26,7 +26,7 @@ void ImGuiLayer::OnAttach() {
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enable Multi-Viewport
 
-    Application &app = Application::Get();
+    const Application &app = Application::Get();
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(

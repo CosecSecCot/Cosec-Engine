@@ -17,18 +17,14 @@ void LayerStack::PushLayer(Layer *layer) {
     layer->OnAttach();
 }
 
-/*
- * Overlays are always rendered at last. Therefore, they are inserted at the back of the layer stack.
- * */
+// Overlays are always rendered at last. Therefore, they are inserted at the back of the layer stack.
 void LayerStack::PushOverlay(Layer *overlay) {
     m_Layers.emplace_back(overlay);
     overlay->OnAttach();
 }
 
-/*
- * For now, when you pop a layer from the layer stack, it doesn't get deallocated.
- * It only gets deallocated when the destructor is called, i.e., it will exist until the application shuts down.
- * */
+// For now, when you pop a layer from the layer stack, it doesn't get deallocated.
+// It only gets deallocated when the destructor is called, i.e., it will exist until the application shuts down.
 void LayerStack::PopLayer(Layer *layer) {
     if (const auto it = std::find(m_Layers.begin(), m_Layers.end(), layer); it != m_Layers.end()) {
         layer->OnDetach();
@@ -37,10 +33,8 @@ void LayerStack::PopLayer(Layer *layer) {
     }
 }
 
-/*
- * For now, when you pop an overlay from the layer stack, it doesn't get deallocated.
- * It only gets deallocated when the destructor is called, i.e., it will exist until the application shuts down.
- * */
+// For now, when you pop an overlay from the layer stack, it doesn't get deallocated.
+// It only gets deallocated when the destructor is called, i.e., it will exist until the application shuts down.
 void LayerStack::PopOverlay(Layer *overlay) {
     if (const auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay); it != m_Layers.end()) {
         overlay->OnDetach();

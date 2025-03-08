@@ -31,7 +31,7 @@ void UnixWindow::Init(const WindowProps &props) {
     LOG_CORE_INFO("Creating Window \"{0}\"({1}x{2})", props.Title, props.Width, props.Height);
 
     if (!s_GLFWInitialized) {
-        int glfwStatus = glfwInit();
+        const int glfwStatus = glfwInit();
         COSEC_CORE_ASSERT(glfwStatus, "GLFW not initialized!");
 
         glfwSetErrorCallback(GLFWErrorCallback);

@@ -38,8 +38,8 @@ void Application::PushOverlay(Layer *overlay) { m_LayerStack->PushOverlay(overla
 
 void Application::Run() {
     while (m_Running) {
-        glad_glClearColor(0.07, 0.07, 0.08, 1);
-        glad_glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.07, 0.07, 0.08, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         for (const auto layer : *m_LayerStack) {
             layer->OnUpdate();
