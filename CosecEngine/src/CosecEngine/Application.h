@@ -6,6 +6,9 @@
 #include "CosecEngine/ImGui/ImGuiLayer.h"
 #include "CosecEngine/Layer.h"
 #include "CosecEngine/LayerStack.h"
+#include "CosecEngine/Renderer/Buffer.h"
+#include "CosecEngine/Renderer/Shader.h"
+#include "CosecEngine/Renderer/VertexArray.h"
 
 #include <pch.h>
 
@@ -32,6 +35,10 @@ private:
     std::unique_ptr<LayerStack> m_LayerStack;
     ImGuiLayer *m_ImGuiLayer;
     bool m_Running = true;
+
+    /* uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer; */
+    std::shared_ptr<Shader> m_Shader;
+    std::shared_ptr<VertexArray> m_VertexArray;
 
     static Application *s_Instance;
 };

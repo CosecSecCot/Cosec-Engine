@@ -28,6 +28,14 @@ target_sources(CosecEngine PRIVATE
     src/CosecEngine/Layer.cpp
     src/CosecEngine/LayerStack.cpp
     src/CosecEngine/ImGui/ImGuiLayer.cpp
+    src/CosecEngine/Renderer/Buffer.cpp
+    src/CosecEngine/Renderer/Renderer.cpp
+    src/CosecEngine/Renderer/Shader.cpp
+    src/CosecEngine/Renderer/VertexArray.cpp
+    src/Platform/OpenGL/OpenGLContext.cpp
+    src/Platform/OpenGL/OpenGLBuffer.cpp
+    src/Platform/OpenGL/OpenGLShader.cpp
+    src/Platform/OpenGL/OpenGLVertexArray.cpp
     src/Platform/Unix/UnixWindow.cpp
     src/Platform/Unix/UnixInput.cpp
 )

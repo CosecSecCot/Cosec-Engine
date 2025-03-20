@@ -1,10 +1,11 @@
+#include "Platform/OpenGL/OpenGLContext.h"
 #define GLFW_INCLUDE_NONE
-#include "UnixWindow.h"
 #include "CosecEngine/Core.h"
 #include "CosecEngine/Events/ApplicationEvent.h"
 #include "CosecEngine/Events/KeyEvent.h"
 #include "CosecEngine/Events/MouseEvent.h"
 #include "CosecEngine/Log.h"
+#include "UnixWindow.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -19,7 +20,7 @@ static void GLFWErrorCallback(int error, const char *description) {
 
 EngineWindow *EngineWindow::Create(const WindowProps &props) { return new UnixWindow(props); }
 
-UnixWindow::UnixWindow(const WindowProps &props) { UnixWindow::Init(props); }
+UnixWindow::UnixWindow(const WindowProps &props) : m_Window(nullptr), m_Context(nullptr) { UnixWindow::Init(props); }
 
 UnixWindow::~UnixWindow() { UnixWindow::Shutdown(); }
 
@@ -49,9 +50,13 @@ void UnixWindow::Init(const WindowProps &props) {
     m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), props.Title.c_str(),
                                 nullptr, nullptr);
 
-    glfwMakeContextCurrent(m_Window);
-    const int gladStatus = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-    COSEC_CORE_ASSERT(gladStatus, "Glad not initialized!")
+    m_Context = new OpenGLContext(m_Window);
+    m_Context->Init();
+
+    // glfwMakeContextCurrent(m_Window);
+    // const int gladStatus = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+    // COSEC_CORE_ASSERT(gladStatus, "Glad not initialized!")
+
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 
@@ -137,7 +142,8 @@ void UnixWindow::Shutdown() { glfwDestroyWindow(m_Window); }
 
 void UnixWindow::OnUpdate() {
     glfwPollEvents();
-    glfwSwapBuffers(m_Window);
+    m_Context->SwapBuffers();
+    // glfwSwapBuffers(m_Window);
 }
 
 void UnixWindow::SetVSync(bool enabled) {

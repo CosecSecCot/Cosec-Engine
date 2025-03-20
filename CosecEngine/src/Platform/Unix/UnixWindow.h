@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CosecEngine/EngineWindow.h"
+#include "CosecEngine/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -27,6 +28,7 @@ private:
     virtual void Shutdown();
 
     GLFWwindow *m_Window;
+    GraphicsContext *m_Context;
 
     struct WindowData {
         std::string Title;

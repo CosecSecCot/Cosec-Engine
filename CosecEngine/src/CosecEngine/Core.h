@@ -34,8 +34,8 @@
 #endif
 
 #ifdef COSEC_ENABLE_ASSERTS
-    #define COSEC_ASSERT(x, ...) { if (!(x)) { LOG_ERROR("Assertion Failed: {0}:{1}: {2}", __FILE__, __LINE__, __VA_ARGS__); } }
-    #define COSEC_CORE_ASSERT(x, ...) { if (!(x)) { LOG_CORE_ERROR("Assertion Failed: {0}:{1}: {2}", __FILE__, __LINE__, __VA_ARGS__); } }
+    #define COSEC_ASSERT(x, ...) { if (!(x)) { LOG_CRIT("Assertion Failed: {0}:{1}: {2}", __FILE__, __LINE__, __VA_ARGS__); } }
+    #define COSEC_CORE_ASSERT(x, ...) { if (!(x)) { LOG_CORE_CRIT("Assertion Failed: {0}:{1}: {2}", __FILE__, __LINE__, __VA_ARGS__); } }
 #else
     #define COSEC_ASSERT(x, ...)
     #define COSEC_CORE_ASSERT(x, ...)
