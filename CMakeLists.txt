@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(CosecEngineProject)
 
+set(CMAKE_CXX_STANDARD 23)
+
 # Enable compile_commands.json for LSP support
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

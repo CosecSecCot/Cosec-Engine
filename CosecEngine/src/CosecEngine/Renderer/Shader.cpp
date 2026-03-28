@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Shader.h"
 #include "CosecEngine/Core.h"
 #include "CosecEngine/Log.h"

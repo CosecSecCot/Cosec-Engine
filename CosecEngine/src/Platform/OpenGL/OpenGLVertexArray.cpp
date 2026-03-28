@@ -1,5 +1,3 @@
-#pragma once
-
 #include "OpenGLVertexArray.h"
 
 namespace Cosec {

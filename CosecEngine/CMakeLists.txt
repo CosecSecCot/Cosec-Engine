@@ -106,6 +106,3 @@ if (COSEC_SHARED)
         )
     endif()
 endif()
-
-# Set C++ standard
-set_property(TARGET CosecEngine PROPERTY CXX_STANDARD 17)

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CosecEngine/Renderer/Renderer.h"
 
 namespace Cosec {

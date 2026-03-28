@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 
+#include <ranges>
+
 namespace Cosec {
 
 Application *Application::s_Instance = nullptr;
@@ -84,8 +86,8 @@ void Application::OnEvent(Event &e) {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(DISPATCH_EVENT_FN(Application::OnWindowClose));
 
-    for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();) {
-        (*--it)->OnEvent(e);
+    for (auto &it : std::ranges::reverse_view(*m_LayerStack)) {
+        it->OnEvent(e);
         if (e.Handled) {
             break;
         }

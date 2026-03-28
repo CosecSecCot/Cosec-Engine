@@ -1,5 +1,3 @@
-#pragma once
-
 #include "VertexArray.h"
 #include "CosecEngine/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "OpenGLBuffer.h"
 
 #include <pch.h>

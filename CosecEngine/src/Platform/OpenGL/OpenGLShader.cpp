@@ -1,5 +1,3 @@
-#pragma once
-
 #include "OpenGLShader.h"
 #include "CosecEngine/Log.h"
 
